@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/25 18:36:37 by amineau          ###   ########.fr       */
+/*   Created: 2016/02/25 14:34:45 by amineau           #+#    #+#             */
+/*   Updated: 2016/02/25 14:38:32 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define FORM "%0*.*d %010.d %C %s\n"
-
-#define A 3, 3, 90, -12345, 90, "coucou"
-#include <stdio.h>
-
-int main()
+void	ft_error(void)
 {
-	printf(FORM, A);
-	ft_printf(FORM, A);
-	return (0);
+	exit(0);
 }

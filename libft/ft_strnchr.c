@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/25 18:36:37 by amineau          ###   ########.fr       */
+/*   Created: 2016/02/25 15:01:06 by amineau           #+#    #+#             */
+/*   Updated: 2016/02/25 15:03:30 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-#define FORM "%0*.*d %010.d %C %s\n"
-
-#define A 3, 3, 90, -12345, 90, "coucou"
-#include <stdio.h>
-
-int main()
+char	*ft_strnchr(const char *s, int c, int n)
 {
-	printf(FORM, A);
-	ft_printf(FORM, A);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != c && i < n)
+		i++;
+	if (s[i] == c)
+		return ((char*)s + i);
+	else
+		return (NULL);
 }
