@@ -6,7 +6,7 @@
 #    By: amineau <amineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/25 13:15:17 by amineau           #+#    #+#              #
-#    Updated: 2016/02/26 05:36:08 by amineau          ###   ########.fr        #
+#    Updated: 2016/02/26 10:31:41 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = main.c \
 	ft_list.c \
 	ft_algo.c \
 	ft_straddc.c \
-	ft_error.c
+	ft_arrondi.c
 
 OBJ = $(SRC:.c=.o)
 

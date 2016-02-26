@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 08:09:57 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 12:00:42 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,43 @@ int		ft_string(t_format *lst, char **res, va_list ap)
 	return (size);
 }
 
-char	*point_incrust(char *str, int n, char c)
+int		nbrdigit(uintmax_t nb)
 {
-	int 	i;
-	char	*dest;
+	int pow;
 
-	i = ft_strlen(str);
-	dest = (char*)ft_memalloc(sizeof(char) * (i + 1));
-	dest = ft_strncpy(dest, str, i - n);
-	if (n == 0 && c != '#')
-		return (dest);
-	dest[i - n] = '.';
-	while (n-- != -1)
-		dest[i - n] = str[i - n - 1];
-	dest[i + 1] = '\0';
-	ft_strdel(&str);
-	return (dest);
+	pow = 0;
+	while (nb / 10 != 0)
+	{
+		nb = nb / 10;
+		pow++;
+	}
+	return (pow);
 }
 
 int		ft_float(t_format *lst, char **res, va_list ap)
 {
-	int		size;
-	char	*str;
+	int			digit;
+	double		nb;
+	intmax_t	integer;
+	intmax_t	decimal;
+	char		*str;
 
-	str = ft_itoa((va_arg(ap, double) * ft_power(lst->precision, 10)));
-	str = point_incrust(str, lst->precision, lst->conv);
-	size = ft_strlen(str);
-	*res = ft_strclnjoin(*res, str);
-	return (size);
+	nb = va_arg(ap, double);
+	integer = nb;
+	decimal = ABS(arrondi((nb - integer) * ft_power(lst->precision, 10)));
+	if (nb < 0.0 && nb > -1.0)
+		*res = ft_straddc(*res, '-');
+	*res = ft_strclnjoin(*res, ft_itoa(integer));
+	if (lst->conv == '#' || lst->precision != 0)
+		*res = ft_straddc(*res, '.');
+	if (lst->precision)
+	{
+		digit = nbrdigit(decimal);
+		while (++digit < lst->precision)
+			*res = ft_straddc(*res, '0');
+		*res = ft_strclnjoin(*res, ft_itoa(decimal));
+	}
+	return (1);
 }
 
 int		ft_int(t_format *lst, char **res, va_list ap)
@@ -99,8 +108,8 @@ int		ft_octal(t_format *lst, char **res, va_list ap)
 	int		size;
 	char	*str;
 
-	if (lst)
-		;
+	if (lst->conv)
+		*res = ft_straddc(*res, '0');
 	str = ft_itoa_unsi_base(va_arg(ap, unsigned int), 8, 'a');
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, str);
@@ -144,13 +153,13 @@ int		ft_form(t_format **lst, char **format, char **res, va_list ap)
 		size = ft_string(tmp, res, ap);
 	else if (tmp->type == 'c')
 		size = ft_char(tmp, res, ap);
-	else if (tmp->type == 'd' || tmp->type == 'i')
+	else if (tmp->type == 'd' || tmp->type == 'i' || tmp->type == 'D')
 		size = ft_int(tmp, res, ap);
 	else if (tmp->type == 'f')
 		size = ft_float(tmp, res, ap);
-	else if (tmp->type == 'u')
+	else if (tmp->type == 'u' || tmp->type == 'U')
 		size = ft_unint(tmp, res, ap);
-	else if (tmp->type == 'o')
+	else if (tmp->type == 'o' || tmp->type == 'O')
 		size = ft_octal(tmp, res, ap);
 	else if (tmp->type == 'x' || tmp->type == 'X')
 		size = ft_hexa(tmp, res, ap);

@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_arrondi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 12:00:44 by amineau          ###   ########.fr       */
+/*   Created: 2016/02/26 10:17:09 by amineau           #+#    #+#             */
+/*   Updated: 2016/02/26 10:32:01 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define FORM "%d %s chiffre : %#.3f ou %%%U et %#O, %#X %p\n"
-
-#define A 0, "coucou", -0.0001, 9, 122, 14
-#include <stdio.h>
-
-int main()
+intmax_t	arrondi(double nb)
 {
-	void	*p;
-	printf("1 : %d\n",printf(FORM, A, p));
-	printf("2 : %d\n",ft_printf(FORM, A, p));
-	return (0);
+	if (nb - (int)nb < 0.5)
+		return ((intmax_t)nb);
+	else
+		return ((intmax_t)(nb + 1));
 }

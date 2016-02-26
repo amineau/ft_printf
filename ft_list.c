@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:15 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 02:55:28 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 08:33:42 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int			size_format(char *str)
 			return (++i);
 		i++;
 	}
-	ft_error();
 	return (0);
 }
 
@@ -45,7 +44,8 @@ t_format	*ft_listnew_format(char *pourc)
 	t_format	*list;
 
 	list = (t_format*)ft_memalloc(sizeof(t_format));
-	list->size = size_format(pourc);
+	if ((list->size = size_format(pourc)) == 0)
+		return (NULL);
 	pourc = stock_flag(list, pourc);
 	pourc = stock_width(&list->width, pourc);
 	pourc = stock_precision(&list->precision, pourc);
@@ -53,7 +53,7 @@ t_format	*ft_listnew_format(char *pourc)
 	if (ft_strchr(TYPE, *pourc))
 		list->type = *pourc;
 	else
-		ft_error();
+		return (NULL);;
 	list->size++;
 	if (list->precision == -2 && ft_strchr("eEf",list->type))
 		list->precision = 6;
@@ -62,10 +62,12 @@ t_format	*ft_listnew_format(char *pourc)
 	return (list);
 }
 
-void		ft_listadd_format(t_format *list, t_format **begin)
+int		ft_listadd_format(t_format *list, t_format **begin)
 {
 	t_format	*tmp;
 
+	if (!list)
+		return (0);
 	if ((tmp = *begin))
 	{
 		while (tmp->next)
@@ -74,4 +76,5 @@ void		ft_listadd_format(t_format *list, t_format **begin)
 	}
 	else
 		*begin = list;
+	return (1);
 }

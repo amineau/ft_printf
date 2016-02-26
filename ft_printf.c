@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:57:28 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 04:20:15 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 08:27:37 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int		ft_printf(const char *format, ...)
 		{
 			pourc++;
 			if (pourc[0] != '%')
-				ft_listadd_format(ft_listnew_format(pourc), lst);
+			{
+				if (!ft_listadd_format(ft_listnew_format(pourc), lst))
+					return (-1);
+			}
 			else
 				pourc++;
 		}
