@@ -6,7 +6,7 @@
 #    By: amineau <amineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/25 13:15:17 by amineau           #+#    #+#              #
-#    Updated: 2016/02/25 16:41:56 by amineau          ###   ########.fr        #
+#    Updated: 2016/02/26 04:27:14 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRC = main.c \
 	ft_printf.c \
 	ft_stock.c \
 	ft_list.c \
+	ft_algo.c \
+	ft_straddc.c \
 	ft_error.c
 
 OBJ = $(SRC:.c=.o)

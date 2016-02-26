@@ -6,13 +6,13 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 13:37:06 by amineau           #+#    #+#             */
-/*   Updated: 2015/11/29 10:23:18 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 03:02:55 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_power(int nb, int pow)
+static int	power(int nb, int pow)
 {
 	int i;
 
@@ -45,8 +45,8 @@ static char	*ft_decomp(int nbr, int pow, int neg)
 	j = pow;
 	while (i <= pow + neg)
 	{
-		digit = nbr / ft_power(10, j);
-		nbr = nbr % ft_power(10, j);
+		digit = nbr / power(10, j);
+		nbr = nbr % power(10, j);
 		str[i] = digit + 48;
 		i++;
 		j--;

@@ -6,13 +6,13 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:50:53 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/25 18:16:41 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 03:01:48 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		nbrdigit(unsigned int nbr, int base)
+static int	nbrdigit(unsigned int nbr, int base)
 {
 	int pow;
 
@@ -25,19 +25,7 @@ int		nbrdigit(unsigned int nbr, int base)
 	return (pow + 1);
 }
 
-int		power(int nbr, int base)
-{
-	int i;
-	int res;
-
-	i = 0;
-	res = 1;
-	while (i++ < nbr)
-		res *= base;
-	return (res);
-}
-
-int		bo(int digit, unsigned int tmp, int i, char *str)
+static int	bo(int digit, unsigned int tmp, int i, char *str)
 {
 	if (digit < 10)
 		str[i] = digit + 48;
@@ -46,7 +34,7 @@ int		bo(int digit, unsigned int tmp, int i, char *str)
 	return (tmp);
 }
 
-char	*ft_itoa_base(int value, int base)
+char		*ft_itoa_base(int value, int base)
 {
 	char			*str;
 	int				neg;
@@ -62,7 +50,8 @@ char	*ft_itoa_base(int value, int base)
 	if (neg == 1)
 		str[i++] = '-';
 	while (--pow >= 0)
-		tmp = bo(tmp / power(pow, base), tmp % power(pow, base), i++, str);
+		tmp = bo(tmp / ft_power(pow, base), 
+		tmp % ft_power(pow, base), i++, str);
 	str[i] = '\0';
 	return (str);
 }

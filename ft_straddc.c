@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_straddc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 04:23:57 by amineau          ###   ########.fr       */
+/*   Created: 2016/02/26 04:20:30 by amineau           #+#    #+#             */
+/*   Updated: 2016/02/26 04:26:57 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define FORM "%s %s chiffre : %d ou %%%i et %i\n"
-
-#define A "4", "coucou", 45, -90, -2000000000
-#include <stdio.h>
-
-int main()
+char	*ft_straddc(char *str, char c)
 {
-	printf("%d\n",printf(FORM, A));
-	printf("%d\n",ft_printf(FORM, A));
-	return (0);
+	char	*dest;
+	int		i;
+
+	i = ft_strlen(str);
+	if (!(dest = (char*)ft_memalloc(sizeof(char*) * (i + 1))))
+		return (NULL);
+	dest = ft_strcpy(dest, (const char*)str);
+	dest[i] = c;
+	dest[i + 1] = '\0';
+	ft_strdel(&str);
+	return (dest);
 }

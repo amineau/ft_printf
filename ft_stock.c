@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/25 16:41:11 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 02:54:12 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		*stock_digit(int *nb, char *pourc)
 	while (ft_isdigit(pourc[i]))
 		i++;
 	*nb = ft_atoi(pourc);
-	return(pourc += sizeof(char) * i);		
+	return(pourc + i);		
 }
 
 char		*stock_flag(t_format *lst, char *str)
@@ -56,11 +56,11 @@ char		*stock_width(int *width, char *pourc)
 		pourc = stock_digit(width, pourc);	
 	else if (pourc[0] == '*')
 	{
-		*width = -2;
+		*width = -1;
 		pourc++;
 	}
 	else
-		*width = -1;
+		*width = 0;
 	return (pourc);
 }
 
@@ -70,11 +70,11 @@ char		*stock_precision(int *prec, char *pourc)
 		pourc = stock_digit(prec, &pourc[1]);
 	else if (pourc[1] == '*')
 	{
-		*prec = -2;
-		pourc += sizeof(char) * 2;
+		*prec = -1;
+		pourc += 2;
 	}
 	else
-		*prec = -1;
+		*prec = -2;
 	return (pourc);
 }
 
@@ -83,7 +83,7 @@ char		*stock_lenght(char **str, char *pourc)
 	if ((pourc[0] == 'h' && pourc[1] == 'h') || (pourc[0] == 'l' && pourc[1] == 'l'))
 	{
 		*str = ft_strndup(pourc, 2);
-		pourc += sizeof(char) * 2;
+		pourc += 2;
 	}
 	else if (pourc[0] == 'h' || pourc[0] == 'l' || pourc[0] == 'j' || pourc[0] == 'z')
 	{		
