@@ -6,15 +6,15 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 12:00:44 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 14:05:46 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define FORM "%d %s chiffre : %#.3f ou %%%U et %#O, %#X %p\n"
+#define FORM "%d %s chiffre : %.3f ou %%%U et %#O, %#X %p\n"
 
-#define A 0, "coucou", -0.0001, 9, 122, 14
+#define A 0, "coucou", -0.0, 9, 122, 14
 #include <stdio.h>
 
 int main()

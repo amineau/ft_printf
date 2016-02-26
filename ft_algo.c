@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 12:00:42 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 14:05:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ int		ft_float(t_format *lst, char **res, va_list ap)
 	nb = va_arg(ap, double);
 	integer = nb;
 	decimal = ABS(arrondi((nb - integer) * ft_power(lst->precision, 10)));
-	if (nb < 0.0 && nb > -1.0)
+	if (*(uintmax_t*)&nb >= 0x8000000000000000)
 		*res = ft_straddc(*res, '-');
-	*res = ft_strclnjoin(*res, ft_itoa(integer));
+	else if (lst->sign == '+' || lst->sign == ' ')
+		*res = ft_straddc(*res, lst->sign);
+	*res = ft_strclnjoin(*res, ft_itoa(ABS(integer)));
 	if (lst->conv == '#' || lst->precision != 0)
 		*res = ft_straddc(*res, '.');
 	if (lst->precision)
