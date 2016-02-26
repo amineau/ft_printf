@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 13:19:41 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 17:16:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include "libft/libft.h"
-# define TYPE "sSpdDioOfFuUxXcC"
+# define TYPE "sSpdDioOfFuUxXcCbBeE"
 # define ABS(x) (x < 0) ? -x : x
 #include <stdio.h>
 typedef struct	s_format

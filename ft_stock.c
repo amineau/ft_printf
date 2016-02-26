@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 10:33:11 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/26 17:08:11 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,21 @@ char		*stock_flag(t_format *lst, char *str)
 	i = 0;
 	while (str[i] == '0' || str[i] == '-' || str[i] == '+' || str[i] == ' ' || str[i] == '#')
 		i++;
-	if (i == 0)
-	 return (str);
-	lst->conv = (ft_strnchr(str, '#', i)) ? '#' : 0;
-	if ((ft_strnchr(str, '+', i) && ft_strnchr(str, ' ', i)) || (ft_strnchr(str, '-', i) && ft_strnchr(str, '0', i)))
-		return (NULL);
 	if (ft_strnchr(str, '-', i)) 
 		lst->just = '-';
 	else if (ft_strnchr(str, '0', i))
 		lst->just = '0';
 	else
-		lst->just = 0;
+		lst->just = ' ';
 	if (ft_strnchr(str, '+', i))
 		lst->sign = '+';
 	else if (ft_strnchr(str, ' ', i))
 		lst->sign = ' ';
 	else
 		lst->sign = 0;
+	lst->conv = (ft_strnchr(str, '#', i)) ? '#' : 0;
+	if ((ft_strnchr(str, '+', i) && ft_strnchr(str, ' ', i)) || (ft_strnchr(str, '-', i) && ft_strnchr(str, '0', i)))
+		return (NULL);
 	return (&str[i]);
 }
 
