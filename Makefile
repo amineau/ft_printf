@@ -6,7 +6,7 @@
 #    By: amineau <amineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/25 13:15:17 by amineau           #+#    #+#              #
-#    Updated: 2016/02/26 04:27:14 by amineau          ###   ########.fr        #
+#    Updated: 2016/02/26 05:36:08 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ft_printf
 CC = gcc
 LFTPATCH = ./libft/
 LIBS = -L$(LFTPATCH) -lft 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = 
 SRC = main.c \
 	ft_printf.c \
 	ft_stock.c \
