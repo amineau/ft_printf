@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 04:20:30 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 04:26:57 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/27 19:02:00 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*ft_straddc(char *str, char c)
 	dest = ft_strcpy(dest, (const char*)str);
 	dest[i] = c;
 	dest[i + 1] = '\0';
-	ft_strdel(&str);
+	if (str)
+		ft_strdel(&str);
 	return (dest);
 }

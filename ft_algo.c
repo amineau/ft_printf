@@ -6,13 +6,13 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 17:16:54 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/27 19:01:58 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_white(char c, int n)
+char	*ft_wh(char c, int n)
 {
 	char	*str;
 	int		i;
@@ -26,26 +26,26 @@ char	*ft_white(char c, int n)
 	return (str);
 }
 
-char	*ft_justif(char *str, int just, char flag)
+char	*ft_justif(char *str, int just, char f)
 {
-	size_t	size;
+	size_t	t;
 	char	sign;
 	char	*ptr;
 
-	size = (int)ft_strlen(str);
-	if (just <= size)
+	t = (int)ft_strlen(str);
+	if (just <= t)
 		return (str);
-	//printf("flag du |%s| : %c\n",str,flag);
-	if (flag == '0' && (str[0] == '-' || str[0] == '+'))
+	//printf("flag du |%s| : %c\n",str,f);
+	if (f == '0' && (str[0] == '-' || str[0] == '+'))
 	{
 		ptr = ft_strnew(1);
 		ptr[0] = str[0];
-		return (ft_strjoin(ft_strclnjoin(ptr, ft_white(flag, just - size)), &str[1]));
+		return (ft_strjoin(ft_strclnjoin(ptr, ft_wh(f, just - t)), &str[1]));
 	}
-	if (flag == ' ' || flag == '0')
-		return (ft_strclnjoin(ft_white(flag, just - size), str));
+	if (f == ' ' || f == '0')
+		return (ft_strclnjoin(ft_wh(f, just - t), str));
 	else
-		return (ft_strclnjoin(str, ft_white(' ', just - size)));
+		return (ft_strclnjoin(str, ft_wh(' ', just - t)));
 }
 
 int		ft_char(t_format *lst, char **res, va_list ap)
@@ -160,9 +160,12 @@ int		ft_int(t_format *lst, char **res, va_list ap)
 	intmax_t	nb;
 	char		*str;
 
-	if (lst)
-		;
-	str = ft_itoa(va_arg(ap, int));
+	str = NULL;
+	nb = va_arg(ap, int);
+	if (nb > 0 && lst->sign)
+		str = ft_straddc(str, lst->sign);
+	printf("str : %s\n", str);
+	str = ft_strclnjoin(str, ft_itoa(nb));
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);
