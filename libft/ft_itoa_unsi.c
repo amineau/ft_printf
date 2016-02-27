@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 06:08:17 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 06:15:21 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/27 21:40:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,22 @@ static int	nbrdigit(uintmax_t nbr)
 	}
 	return (pow + 1);
 }
-
-static int	bo(int digit, uintmax_t tmp, int i, char *str)
-{
-	str[i] = digit + 48;
-	return (tmp);
-}
-
 char		*ft_itoa_unsi(uintmax_t value)
 {
-	char		*str;
-	int			pow;
-	int			i;
+	char	*str;
+	int		pow;
+	int		digit;
+	int		i;
 
 	i = 0;
 	pow = nbrdigit(value);
 	str = (char*)malloc(sizeof(char) * (pow + 1));
 	while (--pow >= 0)
-		value = bo(value / ft_power(pow, 10),
-				value % ft_power(pow, 10), i++, str);
-	str[i] = '\0';
+	{
+		digit = value / ft_power(pow, 10);
+		value %= ft_power(pow, 10);
+		str[i++] = digit + 48;
+	}
+		str[i] = '\0';
 	return (str);
 }

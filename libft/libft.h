@@ -6,7 +6,7 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:21:26 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 08:07:32 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/27 21:36:01 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			ft_bzero(void *s, size_t n);
 int				ft_max(int *tab, size_t len);
 int				ft_min(int *tab, size_t len);
 uintmax_t		ft_power(int nbr, int base);
-int				ft_abs(int n);
+intmax_t		ft_abs(intmax_t n);
 int				ft_isupper(int c);
 int				ft_islower(int c);
 int				ft_isalpha(int c);

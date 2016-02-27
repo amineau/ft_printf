@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/27 19:01:58 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/27 23:08:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ char	*ft_wh(char c, int n)
 	return (str);
 }
 
-char	*ft_justif(char *str, int just, char f)
+char	*ft_justif(char *str, size_t just, char f)
 {
 	size_t	t;
-	char	sign;
 	char	*ptr;
 
 	t = (int)ft_strlen(str);
@@ -64,16 +63,11 @@ int		ft_string(t_format *lst, char **res, va_list ap)
 {
 	int		size;
 	char	*str;
-	char	*dest;
 
-	if (lst)
-		;
-	str = va_arg(ap, char*);
-	size = ft_strlen(str);
-	if (!(dest = (char*)ft_memalloc(sizeof(char) * (size + 1))))
-		return (-1);
-	dest = ft_strcpy(dest, str);
-	*res = ft_strclnjoin(*res, ft_justif(dest, lst->width, lst->just));
+	if (!(str = va_arg(ap, char*)))
+		str = ft_strdup("(null)");
+	size = (lst->precision >= 0) ? lst->precision : ft_strlen(str);
+	*res = ft_strclnjoin(*res, ft_justif(ft_strndup(str, size), lst->width, lst->just));
 	return (size);
 }
 
@@ -101,12 +95,14 @@ int		ft_float(t_format *lst, char **res, va_list ap)
 	str = ft_strnew(0);
 	nb = va_arg(ap, double);
 	integer = nb;
-	decimal = ABS(arrondi((nb - integer) * ft_power(lst->precision, 10)));
+	//printf("nb : %f || it : %jd\n",nb, integer);
+	decimal = ft_abs(arrondi((nb - integer) * ft_power(lst->precision, 10)));
 	if (*(uintmax_t*)&nb >= 0x8000000000000000)
 		str = ft_straddc(str, '-');
-	else if (lst->sign == '+' || lst->sign == ' ')
+	else if (lst->sign)
 		str = ft_straddc(str, lst->sign);
-	str = ft_strclnjoin(str, ft_itoa(ABS(integer)));
+	str = ft_strclnjoin(str, ft_itoa_unsi(ft_abs(integer)));
+	//printf("%s\n",str);
 	if (lst->conv == '#' || lst->precision != 0)
 		str = ft_straddc(str, '.');
 	if (lst->precision)
@@ -135,12 +131,12 @@ int		ft_scienti(t_format *lst, char **res, va_list ap)
 	/***************************************/
 	/***************************************/
 	integer = nb;
-	decimal = ABS(arrondi((nb - integer) * ft_power(lst->precision, 10)));
+	decimal = ft_abs(arrondi((nb - integer) * ft_power(lst->precision, 10)));
 	if (*(uintmax_t*)&nb >= 0x8000000000000000)
 		str = ft_straddc(str, '-');
 	else if (lst->sign == '+' || lst->sign == ' ')
 		str = ft_straddc(str, lst->sign);
-	str = ft_strclnjoin(str, ft_itoa(ABS(integer)));
+	str = ft_strclnjoin(str, ft_itoa(ft_abs(integer)));
 	if (lst->conv == '#' || lst->precision != 0)
 		str = ft_straddc(str, '.');
 	if (lst->precision)
@@ -164,7 +160,6 @@ int		ft_int(t_format *lst, char **res, va_list ap)
 	nb = va_arg(ap, int);
 	if (nb > 0 && lst->sign)
 		str = ft_straddc(str, lst->sign);
-	printf("str : %s\n", str);
 	str = ft_strclnjoin(str, ft_itoa(nb));
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));

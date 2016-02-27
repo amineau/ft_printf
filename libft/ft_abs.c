@@ -6,13 +6,13 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/08 14:09:21 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/08 14:10:16 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/27 21:35:35 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_abs(int n)
+intmax_t	ft_abs(intmax_t n)
 {
 	if (n < 0)
 		n = -n;
