@@ -6,13 +6,13 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/28 14:19:01 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/28 19:43:57 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define FORM "% 08d %f %03u %o %05x %.3s\n"
+#define FORM "% 08d %.f %03u %o %05x %.3s\n"
 
 #define MAXINT 2147483647
 #define INT 42
