@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_itoa_double.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/28 14:19:01 by amineau          ###   ########.fr       */
+/*   Created: 2016/02/28 11:28:40 by amineau           #+#    #+#             */
+/*   Updated: 2016/02/28 14:18:44 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define FORM "% 08d %f %03u %o %05x %.3s\n"
+char	*ft_itoa_double(double nb, int prec)
+{
+	char	*str=NULL;
+	double	tmp;
+	int		nbrdig;
 
-#define MAXINT 2147483647
-#define INT 42
-#define FL 6880889.015
-#define FLL 689.015L
-#define A -INT, FL, INT, -INT, INT
-#include <stdio.h>
+	nbrdig = 1;
+	tmp =  (*(uintmax_t*)&nb > DBL_MAX / 2) ? -nb : nb;
+	while (tmp > 10)
+		{
+			tmp /= 10;
+			nbrdig += 1
+		}
+	while (nbrdig = 0)
+	{
+
+	}
+
+	return (str);
+}
 
 int main()
 {
-//	void	*p;
-	char *str=NULL;
-	printf("1 : %d\n",printf(FORM, A, str));
-	printf("2 : %d\n",ft_printf(FORM, A,str));
+	double db = 11444444555556432234.123456;
+	ft_itoa_double(db, 4);
+	printf("%f \n%i\n",DBL_MAX, INT_MAX);
 	return (0);
 }
