@@ -92,9 +92,9 @@ int		ft_float(t_format *lst, char **res, va_list ap)
 	intmax_t	decimal;
 	char		*str;
 
-	str = ft_strnew(0);
+	//str = ft_strnew(0);
 	nb = va_arg(ap, double);
-	integer = nb;
+	/*integer = nb;
 	//printf("nb : %f || it : %jd\n",nb, integer);
 	decimal = ft_abs(arrondi((nb - integer) * ft_power(lst->precision, 10)));
 	if (*(uintmax_t*)&nb >= 0x8000000000000000)
@@ -111,7 +111,11 @@ int		ft_float(t_format *lst, char **res, va_list ap)
 		while (++digit < lst->precision)
 			str = ft_straddc(str, '0');
 		str = ft_strclnjoin(str, ft_itoa(decimal));
-	}
+	}*/
+	if (lst->precision == 0 && lst->conv != '#')
+		lst->precision = -1;
+		printf("nb1 : %f\n",nb);
+	str = ft_itoa_double(nb, lst->precision);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (1);
 }
@@ -120,8 +124,8 @@ int		ft_scienti(t_format *lst, char **res, va_list ap)
 {
 	int			digit;
 	double		nb;
-	intmax_t	integer;
-	intmax_t	decimal;
+	int64_t	integer;
+	int64_t	decimal;
 	char		*str;
 
 	str = ft_strnew(0);
@@ -131,8 +135,8 @@ int		ft_scienti(t_format *lst, char **res, va_list ap)
 	/***************************************/
 	/***************************************/
 	integer = nb;
-	decimal = ft_abs(arrondi((nb - integer) * ft_power(lst->precision, 10)));
-	if (*(uintmax_t*)&nb >= 0x8000000000000000)
+	decimal = ft_abs(ft_arrondi((nb - integer) * ft_power(lst->precision, 10)));
+	if (*(uintmax_t*)&nb >= DBL_MAX / 2)
 		str = ft_straddc(str, '-');
 	else if (lst->sign == '+' || lst->sign == ' ')
 		str = ft_straddc(str, lst->sign);
@@ -197,9 +201,14 @@ int		ft_binaire(t_format *lst, char **res, va_list ap)
 	int		size;
 	char	*str;
 
+	str = NULL;
 	if (lst->conv == '#')
-		*res = ft_straddc(*res, '0');
-	str = ft_itoa_unsi_base(va_arg(ap, unsigned int), 2, 'a');
+	{
+		str = ft_strnew(2);
+		str[0] = '0';
+		str[1] = lst->type;
+	}
+	str = ft_strclnjoin(str, ft_itoa_unsi_base(va_arg(ap,unsigned int), 2, 'a'));
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);

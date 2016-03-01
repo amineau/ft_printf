@@ -15,13 +15,14 @@ NAME = ft_printf
 CC = gcc
 LFTPATCH = ./libft/
 LIBS = -L$(LFTPATCH) -lft 
-FLAGS = -Wall -Wextra -Werror 
+FLAGS =
 SRC = main.c \
 	ft_printf.c \
 	ft_stock.c \
 	ft_list.c \
 	ft_algo.c \
 	ft_straddc.c \
+	ft_itoa_double.c \
 	ft_arrondi.c
 
 OBJ = $(SRC:.c=.o)

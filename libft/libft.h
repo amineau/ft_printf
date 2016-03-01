@@ -16,7 +16,9 @@
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
+/***********config linux**********/
+#include <stdint.h>
+/*********************************/
 # define BUFF_SIZE 10
 
 typedef struct	s_list
@@ -74,7 +76,7 @@ int				ft_tolower(int c);
 int				ft_atoi(const char *str);
 void			ft_strclr(char *s);
 char			*ft_strnew(size_t size);
-char			*ft_itoa(intmax_t n);
+char			*ft_itoa(int64_t n);
 char			*ft_itoa_unsi(uintmax_t n);
 char			*ft_itoa_base(intmax_t n, int base, char c);
 char			*ft_itoa_unsi_base(uintmax_t n, int base, char c);

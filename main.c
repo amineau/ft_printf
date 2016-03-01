@@ -12,20 +12,22 @@
 
 #include "ft_printf.h"
 
-#define FORM "% 08d %.f %03u %o %05x %.3s\n"
+#define FORM "%.20f \n"
 
 #define MAXINT 2147483647
 #define INT 42
-#define FL 6880889.015
+#define FL 0XFFFFFFFFFFFFFFFF
 #define FLL 689.015L
-#define A -INT, FL, INT, -INT, INT
+#define A FL
 #include <stdio.h>
 
 int main()
 {
+	double nb = FL;
 //	void	*p;
-	char *str=NULL;
-	printf("1 : %d\n",printf(FORM, A, str));
-	printf("2 : %d\n",ft_printf(FORM, A,str));
+//	printf("1 : %d\n",printf(FORM, A));
+//	printf("2 : %d\n",ft_printf(FORM, A));
+ft_printf("%#X\n",*(float*)&nb);
+   printf("%#X\n",*(float*)&nb);
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	nbrdigit(uintmax_t nbr)
+static int	nbrdigit(int64_t nbr)
 {
 	int pow;
 
@@ -25,19 +25,19 @@ static int	nbrdigit(uintmax_t nbr)
 	return (pow + 1);
 }
 
-static int	bo(int digit, uintmax_t tmp, int i, char *str)
+static int	bo(int digit, uint64_t tmp, int i, char *str)
 {
 		str[i] = digit + 48;
 	return (tmp);
 }
 
-char		*ft_itoa(intmax_t value)
+char		*ft_itoa(int64_t value)
 {
 	char		*str;
 	int			neg;
 	int			pow;
 	int			i;
-	intmax_t	tmp;
+	int64_t	tmp;
 
 	i = 0;
 	neg = (value < 0) ? 1 : 0;

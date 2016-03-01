@@ -12,19 +12,14 @@
 
 #include "ft_printf.h"
 
-intmax_t	arrondi(long double nb)
+int		ft_arrondi(long double nb)
 {
-	long double tmp;
-	int			neg;
-
-	tmp = (nb < 0) ? -nb : nb;
-	neg = (nb < 0) ? -1 : 1;
-	if (tmp - (intmax_t)tmp < 0.5)
-		return ((intmax_t)nb);
-	return ((intmax_t)(nb + neg));
+	if (nb - (int)nb < 0.5)
+		return ((int)nb);
+	return ((int)(nb + 1) % 10);
 }
 
-long double	arrondi_double(long double nb, size_t dec)
+long double	ft_arrondi_double(long double nb, size_t dec)
 {
 	long double tmp;
 	int			neg;
