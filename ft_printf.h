@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 19:04:43 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 21:25:10 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define INT_MAX 0x7FFFFFFF
 # define UINT_MAX 0xFFFFFFFF
 # define DBL_MAX (double)0xFFFFFFFFFFFFFFFF
-# define LDBL_MAX (long double)0xFFFFFFFFFFFFFFFFFFFFL
+# define LDBL_MAX (long double)0xFFFFFFFFFFFFFFFFFFFF
 
 #include <stdio.h>
 typedef struct	s_format

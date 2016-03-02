@@ -6,19 +6,20 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 19:04:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 21:25:12 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define FORM "%.30f\n"
+#define FORM "%3.4d\n"
 
 #define ROD 2147483647
 #define INT 345442
 #define DBL 0.123986
-#define FLL 689.015L
-#define A DBL
+#define FLL -689.015L
+#define FL 689.015
+#define A -42
 #include <stdio.h>
 
 int main()

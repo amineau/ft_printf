@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 19:04:48 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 21:25:06 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ int		ft_char(t_format *lst, char **res, va_list ap)
 	c = va_arg(ap, unsigned int);
 	size = 1;
 	*res = ft_straddc(*res, c);
+	printf("c2 : %s\n",*res);
 	return (size);
 }
+
 int		ft_string(t_format *lst, char **res, va_list ap)
 {
 	int		size;
@@ -138,24 +140,20 @@ int		nbrdigit(uintmax_t nb)
 
 int		ft_float(t_format *lst, char **res, va_list ap)
 {
-	double		nb;
 	char		*str;
 
-	nb = va_arg(ap, double);
 	if (lst->precision == 0 && lst->conv != '#')
 		lst->precision = -1;
-	str = ft_itoa_double(nb, lst->precision);
+	str = ft_float_size(lst, ap);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (1);
 }
 
 int		ft_scienti(t_format *lst, char **res, va_list ap)
 {
-	double		nb;
 	char		*str;
 
-	nb = va_arg(ap, double);
-	str = ft_itoa_scien(nb, lst->precision, lst->type);
+	str = ft_scien_size(lst, ap);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 13:42:43 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 21:25:08 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char		*stock_lenght(char **str, char *pourc)
 		*str = ft_strndup(pourc, 2);
 		pourc += 2;
 	}
-	else if (pourc[0] == 'h' || pourc[0] == 'l' || pourc[0] == 'j' || pourc[0] == 'z')
+	else if (pourc[0] == 'h' || pourc[0] == 'l' || pourc[0] == 'j' || pourc[0] == 'z' || pourc[0] == 'L')
 	{		
 		*str = ft_strndup(pourc, 1);
 		pourc++;

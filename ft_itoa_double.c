@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:28:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 19:04:54 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 20:25:04 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ char	*ft_itoa_scien_long(long double nb, int prec, char e)
 	int			neg;
 
 	dec = 0;
-	tmp = (*(uintmax_t*)&nb > (long double)0x7FFFFFFFFFFFFFFFFFFFFFFFL / 2) ? -nb : nb;
-	neg = (*(uintmax_t*)&nb > LDBL_MAX / 2) ? 1 : 0;
+	tmp = (*(long double*)&nb > DBL_MAX / 2) ? -nb : nb;
+	neg = (*(long double*)&nb > DBL_MAX / 2) ? 1 : 0;
 	str = ft_strnew(neg + 1);
 	str[0] = '-';
 	while (tmp < 1)
@@ -180,11 +180,11 @@ char	*ft_itoa_long(long double nb, int prec)
 	long double	tmp2;
 	int			nbrdig;
 	int			i;
-
 	nbrdig = 1;
-	tmp = (*(uintmax_t*)&nb > LDBL_MAX / 2) ? -nb : nb;
+	tmp = (*(long double*)&nb > DBL_MAX / 2) ? -nb : nb;
+	printf("tmp : %Lf\n",tmp);
 	tmp2 = tmp;
-	str = (*(uintmax_t*)&nb > LDBL_MAX / 2) ? ft_strdup("-") : ft_strdup("");
+	str = (*(long double*)&nb > DBL_MAX / 2) ? ft_strdup("-") : ft_strdup("");
 	while (tmp > 10)
 	{
 		tmp /= 10;
