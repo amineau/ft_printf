@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:50:53 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/28 11:45:44 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 12:59:45 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ static char	*asneg(intmax_t nb, int *i, int base)
 	tmp = (nb < 0) ? -nb : nb;
 	str = (char*)malloc(sizeof(char) * (neg + nbrdigit(tmp, base) + 1));
 	if (neg == 1)
-		str[*i++] = '-';
+		str[(*i)++] = '-';
 	return (str);
 }
-
 char		*ft_itoa_base(intmax_t value, int base, char c)
 {
 	char		*str;

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/28 14:18:57 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 19:04:43 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ typedef struct	s_format
 int			ft_printf(const char *format, ...);
 int			ft_algo(t_format *lst, char *str, char **res, va_list ap);
 char		*ft_itoa_double(double nb, int prec);
-char		*ft_ftoa(float f, int *status);
+char		*ft_itoa_scien(double nb, int prec, char c);
+char		*ft_itoa_long(long double nb, int prec);
+char		*ft_itoa_scien_long(long double nb, int prec, char c);
 char		*stock_flag(t_format *lst, char *str);
 char		*stock_width(int *width, char *pourc);
 char		*stock_precision(int *prec, char *pourc);

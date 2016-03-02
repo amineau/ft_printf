@@ -6,13 +6,13 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 13:37:06 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 09:14:41 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 12:58:05 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	nbrdigit(int64_t nbr)
+static int	nbrdigit(intmax_t nbr)
 {
 	int pow;
 
@@ -25,19 +25,19 @@ static int	nbrdigit(int64_t nbr)
 	return (pow + 1);
 }
 
-static int	bo(int digit, uint64_t tmp, int i, char *str)
+static int	bo(int digit, uintmax_t tmp, int i, char *str)
 {
 		str[i] = digit + 48;
 	return (tmp);
 }
 
-char		*ft_itoa(int64_t value)
+char		*ft_itoa(intmax_t value)
 {
 	char		*str;
 	int			neg;
 	int			pow;
 	int			i;
-	int64_t	tmp;
+	intmax_t	tmp;
 
 	i = 0;
 	neg = (value < 0) ? 1 : 0;

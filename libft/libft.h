@@ -6,7 +6,7 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:21:26 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/27 21:36:01 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 14:25:43 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				ft_tolower(int c);
 int				ft_atoi(const char *str);
 void			ft_strclr(char *s);
 char			*ft_strnew(size_t size);
-char			*ft_itoa(int64_t n);
+char			*ft_itoa(intmax_t n);
 char			*ft_itoa_unsi(uintmax_t n);
 char			*ft_itoa_base(intmax_t n, int base, char c);
 char			*ft_itoa_unsi_base(uintmax_t n, int base, char c);
@@ -93,6 +93,7 @@ char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strclnjoin(char const *s1, char const *s2);
 char			*ft_strcln1join(char const *s1, char const *s2);
+char			*ft_strcln2join(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s);
 char			**ft_strsplit(char const *s, char c);
 t_list			*ft_lstnew(void const *content, size_t content_size);

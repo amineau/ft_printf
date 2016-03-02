@@ -6,7 +6,7 @@
 #    By: amineau <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/23 15:32:27 by amineau           #+#    #+#              #
-#    Updated: 2016/02/26 06:08:05 by amineau          ###   ########.fr        #
+#    Updated: 2016/03/02 14:25:21 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC=ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c ft_strlen.c ft_strdup.c \
 	ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c \
 	ft_lstmap.c ft_min.c ft_max.c ft_putnbrendl.c ft_strclnjoin.c ft_strndup.c \
 	get_next_line.c ft_abs.c ft_strcasecmp.c ft_strnchr.c ft_itoa_base.c ft_power.c \
-	ft_strcln1join.c ft_itoa_unsi.c ft_itoa_unsi_base.c
+	ft_strcln1join.c ft_itoa_unsi.c ft_itoa_unsi_base.c ft_strcln2join.c
 
 OBJ=$(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/28 14:18:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 19:04:48 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,59 @@ char	*ft_wh(char c, int n)
 	return (str);
 }
 
+char	*ft_signed_size(t_format *lst, int base, va_list ap)
+{
+	if (ft_strcmp(lst->lenght, "hh") == 0)
+		return (ft_itoa_base((char)va_arg(ap, int), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "h") == 0)
+		return (ft_itoa_base((short)va_arg(ap, int), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "l") == 0)
+		return (ft_itoa_base(va_arg(ap, long), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "ll") == 0)
+		return (ft_itoa_base(va_arg(ap, long long), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "j") == 0)
+		return (ft_itoa_base(va_arg(ap, intmax_t), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "z") == 0)
+		return (ft_itoa_base(va_arg(ap, size_t), base, lst->type));
+	else
+		return (ft_itoa_base(va_arg(ap, int), base, lst->type));
+}
+
+char	*ft_unsigned_size(t_format *lst, int base, va_list ap)
+{
+	if (ft_strcmp(lst->lenght, "hh") == 0)
+		return (ft_itoa_unsi_base((unsigned char)va_arg(ap, int), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "h") == 0)
+		return (ft_itoa_unsi_base((unsigned short)va_arg(ap, int), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "l") == 0)
+		return (ft_itoa_unsi_base(va_arg(ap, unsigned long), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "ll") == 0)
+		return (ft_itoa_unsi_base(va_arg(ap, unsigned long long), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "j") == 0)
+		return (ft_itoa_unsi_base(va_arg(ap, uintmax_t), base, lst->type));
+	else if (ft_strcmp(lst->lenght, "z") == 0)
+		return (ft_itoa_unsi_base(va_arg(ap, ssize_t), base, lst->type));
+	else
+		return (ft_itoa_unsi_base(va_arg(ap, unsigned int), base, lst->type));
+}
+
+char	*ft_float_size(t_format *lst, va_list ap)
+{
+	if (ft_strcmp(lst->lenght, "L") == 0)
+		return (ft_itoa_long(va_arg(ap, long double), lst->precision));
+	else	
+		return (ft_itoa_double(va_arg(ap, double), lst->precision));
+}
+
+char	*ft_scien_size(t_format *lst, va_list ap)
+{
+	if (ft_strcmp(lst->lenght, "L") == 0)
+		return (ft_itoa_scien_long(va_arg(ap, long double), lst->precision, lst->type));
+	else	
+		return (ft_itoa_scien(va_arg(ap, double), lst->precision, lst->type));
+
+}
+
 char	*ft_justif(char *str, size_t just, char f)
 {
 	size_t	t;
@@ -34,7 +87,6 @@ char	*ft_justif(char *str, size_t just, char f)
 	t = (int)ft_strlen(str);
 	if (just <= t)
 		return (str);
-	//printf("flag du |%s| : %c\n",str,f);
 	if (f == '0' && (str[0] == '-' || str[0] == '+'))
 	{
 		ptr = ft_strnew(1);
@@ -86,35 +138,12 @@ int		nbrdigit(uintmax_t nb)
 
 int		ft_float(t_format *lst, char **res, va_list ap)
 {
-	int			digit;
 	double		nb;
-	intmax_t	integer;
-	intmax_t	decimal;
 	char		*str;
 
-	//str = ft_strnew(0);
 	nb = va_arg(ap, double);
-	/*integer = nb;
-	//printf("nb : %f || it : %jd\n",nb, integer);
-	decimal = ft_abs(arrondi((nb - integer) * ft_power(lst->precision, 10)));
-	if (*(uintmax_t*)&nb >= 0x8000000000000000)
-		str = ft_straddc(str, '-');
-	else if (lst->sign)
-		str = ft_straddc(str, lst->sign);
-	str = ft_strclnjoin(str, ft_itoa_unsi(ft_abs(integer)));
-	//printf("%s\n",str);
-	if (lst->conv == '#' || lst->precision != 0)
-		str = ft_straddc(str, '.');
-	if (lst->precision)
-	{
-		digit = nbrdigit(decimal);
-		while (++digit < lst->precision)
-			str = ft_straddc(str, '0');
-		str = ft_strclnjoin(str, ft_itoa(decimal));
-	}*/
 	if (lst->precision == 0 && lst->conv != '#')
 		lst->precision = -1;
-		printf("nb1 : %f\n",nb);
 	str = ft_itoa_double(nb, lst->precision);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (1);
@@ -122,34 +151,11 @@ int		ft_float(t_format *lst, char **res, va_list ap)
 
 int		ft_scienti(t_format *lst, char **res, va_list ap)
 {
-	int			digit;
 	double		nb;
-	int64_t	integer;
-	int64_t	decimal;
 	char		*str;
 
-	str = ft_strnew(0);
 	nb = va_arg(ap, double);
-	/***************************************/
-	/***************************************/
-	/***************************************/
-	/***************************************/
-	integer = nb;
-	decimal = ft_abs(ft_arrondi((nb - integer) * ft_power(lst->precision, 10)));
-	if (*(uintmax_t*)&nb >= DBL_MAX / 2)
-		str = ft_straddc(str, '-');
-	else if (lst->sign == '+' || lst->sign == ' ')
-		str = ft_straddc(str, lst->sign);
-	str = ft_strclnjoin(str, ft_itoa(ft_abs(integer)));
-	if (lst->conv == '#' || lst->precision != 0)
-		str = ft_straddc(str, '.');
-	if (lst->precision)
-	{
-		digit = nbrdigit(decimal);
-		while (++digit < lst->precision)
-			str = ft_straddc(str, '0');
-		str = ft_strclnjoin(str, ft_itoa(decimal));
-	}
+	str = ft_itoa_scien(nb, lst->precision, lst->type);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (1);
 }
@@ -157,14 +163,11 @@ int		ft_scienti(t_format *lst, char **res, va_list ap)
 int		ft_int(t_format *lst, char **res, va_list ap)
 {
 	int			size;
-	intmax_t	nb;
 	char		*str;
 
-	str = NULL;
-	nb = va_arg(ap, int);
-	if (nb > 0 && lst->sign)
-		str = ft_straddc(str, lst->sign);
-	str = ft_strclnjoin(str, ft_itoa(nb));
+	str = ft_signed_size(lst, 10, ap);
+	if (str[0] != '-' && lst->sign)
+		*res = ft_straddc(*res, lst->sign);
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);
@@ -175,9 +178,7 @@ int		ft_unint(t_format *lst, char **res, va_list ap)
 	int		size;
 	char	*str;
 
-	if (lst)
-		;
-	str = ft_itoa_unsi(va_arg(ap, unsigned int));
+	str = ft_unsigned_size(lst, 10, ap);
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);
@@ -189,8 +190,8 @@ int		ft_octal(t_format *lst, char **res, va_list ap)
 	char	*str;
 
 	if (lst->conv == '#')
-		*res = ft_straddc(*res, '0');
-	str = ft_itoa_unsi_base(va_arg(ap, unsigned int), 8, 'a');
+		*res = ft_straddc(*res, 'O');
+	str = ft_unsigned_size(lst, 8, ap);
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);
@@ -208,7 +209,7 @@ int		ft_binaire(t_format *lst, char **res, va_list ap)
 		str[0] = '0';
 		str[1] = lst->type;
 	}
-	str = ft_strclnjoin(str, ft_itoa_unsi_base(va_arg(ap,unsigned int), 2, 'a'));
+	str = ft_strclnjoin(str, ft_unsigned_size(lst, 2, ap));
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);
@@ -219,18 +220,18 @@ int		ft_adrpoint(t_format *lst, char **res, va_list ap)
 	int			size;
 	char		*str;
 
-	if (lst)
-		;
 	*res = ft_straddc(ft_straddc(*res, '0'), lst->type + 8);
 	str = ft_itoa_unsi_base(va_arg(ap, uintmax_t), 16, lst->type + 8);
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, str);
 	return (size);
 }
+
 int		ft_hexa(t_format *lst, char **res, va_list ap)
 {
-	int			size;
-	char		*str;
+	int		size;
+	char	*str;
+	char	*dest;
 
 	str = NULL;
 	if (lst->conv == '#')
@@ -239,7 +240,8 @@ int		ft_hexa(t_format *lst, char **res, va_list ap)
 		str[0] = '0';
 		str[1] = lst->type;
 	}
-	str = ft_strclnjoin(str, ft_itoa_unsi_base(va_arg(ap, unsigned int) , 16, lst->type));
+	dest = ft_unsigned_size(lst, 16, ap);
+	str = ft_strclnjoin(str, dest);
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);

@@ -6,51 +6,42 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:28:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/28 23:20:23 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 19:04:54 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_decimal(double nb, int prec)
+char	*ft_decimal(long double nb, int prec)
 {
 	char	*str;
 	int		i;
-	int	tmp;
-	int64_t in64;
+
 	if (prec < 0)
 		return (NULL);
-	//	printf("ici ca passe\n");
-	in64 = nb * ft_power(prec, 10);
-	str = ft_strjoin(".",ft_itoa(in64));
-	/*
-	   str = ft_strnew(prec + 1);
-	   i = 0;
-	   str[i++] = '.';
-	   printf("nb : %.8f\n",nb);
-	   nb = ft_arrondi_double(nb, prec);
-	   printf("nb : %.8f\n",nb);
-	   while (prec != 0)
-	   {
-	   nb *= 10;
-	   printf("nb : %.20f || tmp : %d\n",nb, (int)nb);
-	   if (prec != 1)
-	   str[i++] = (int)nb + 48;
-	   else
-	   str[i++] = ft_arrondi(nb) + 48;
+	str = ft_strnew(prec + 1);
+	i = 0;
+	str[i++] = '.';
+	nb = ft_arrondi_double(nb, prec);
+	while (prec != 0)
+	{
+		nb *= 10;
+		if (prec != 1)
+			str[i++] = (int)nb + 48;
+		else
+			str[i++] = ft_arrondi(nb) + 48;
 
-	   nb = (nb - (int)nb);
-	//	printf("nb : %.2f\n",nb);
-	prec--;
+		nb = (nb - (int)nb);
+		prec--;
 	}
-	str[i] = '\0';*/
+	str[i] = '\0';
 	return (str);
 }
 
-char	*ft_integer(double nb, char *str, int nbrdig, int prec)
+char		*ft_integer(long double nb, char *str, int nbrdig, int prec)
 {
-	int		i;
-	double	tmp;
+	int			i;
+	long double	tmp;
 
 	str = ft_strnew(nbrdig);
 	tmp = 0;
@@ -68,25 +59,11 @@ char	*ft_integer(double nb, char *str, int nbrdig, int prec)
 	return (str);
 }
 
-double	ft_digit(double nb, int nbrdig)
+long double	ft_atof(char *str)
 {
-	double	res;
-
-	res = 0;
-	while (nbrdig != 0)
-	{ 
-		res = res * 10 + (int)nb;
-		nb = (nb - (int)nb) * 10;
-		nbrdig--;
-	}
-	return (res);
-}
-
-double	ft_atoi_double(char *str)
-{
-	double	nb;
-	int	size;
-	int	i;
+	long double	nb;
+	int			size;
+	int			i;
 
 	size = ft_strlen(str);
 	i = (str[0] == '-') ? 1 : 0;
@@ -97,53 +74,171 @@ double	ft_atoi_double(char *str)
 	return (nb);
 }
 
+void		ft_refresh(char **str)
+{
+	int		i;
+
+	i = (int)ft_strlen(*str) - 1;
+	while (i >= 0 && (*str)[i] != '-')
+	{
+		if (!ft_isdigit((*str)[i]) && (*str)[i] != '.')
+		{
+			(*str)[i] = '0';
+			if ((i != 0 && (*str)[0] != '-') || (i != 1 && (*str)[0] == '-'))
+			{
+				if ((*str)[i - 1] != '.')
+					(*str)[i - 1]++;
+				else
+					(*str)[i - 2]++;
+			}
+			else if (i == 1)
+			{
+				(*str)[0] = '1';
+				*str = ft_strcln2join("-", *str);
+			}
+			else
+				*str = ft_strcln2join("1", *str);
+		}
+		i--;
+	}
+}
+
+char	*ft_exposant(char e, int dec)
+{
+	char	*str;
+
+	str = ft_strnew(4);
+	str[0] = e;
+	str[1] = (dec < 0) ? '-' : '+';
+	str[2] = (ABS(dec) / 10) + 48;
+	str[3] = (ABS(dec) % 10) + 48;
+	return (str);
+}
+
+char	*ft_itoa_scien_long(long double nb, int prec, char e)
+{
+	char		*str;
+	long double	tmp;
+	int			dec;
+	int			neg;
+
+	dec = 0;
+	tmp = (*(uintmax_t*)&nb > (long double)0x7FFFFFFFFFFFFFFFFFFFFFFFL / 2) ? -nb : nb;
+	neg = (*(uintmax_t*)&nb > LDBL_MAX / 2) ? 1 : 0;
+	str = ft_strnew(neg + 1);
+	str[0] = '-';
+	while (tmp < 1)
+	{
+		tmp *= 10;
+		dec--;
+	}
+	while (tmp >= 10)
+	{
+		tmp /= 10;
+		dec++;
+	}
+	str[neg] = (int)tmp + 48;
+	str = ft_strcln1join(str, ft_decimal(tmp - (int)tmp, prec));
+	ft_refresh(&str);
+	str = ft_strclnjoin(str, ft_exposant(e, dec));
+	return (str);
+}
+
+char	*ft_itoa_scien(double nb, int prec, char e)
+{
+	char	*str;
+	double	tmp;
+	int		dec;
+	int		neg;
+
+	dec = 0;
+	tmp = (*(uintmax_t*)&nb > DBL_MAX / 2) ? -nb : nb;
+	neg = (*(uintmax_t*)&nb > DBL_MAX / 2) ? 1 : 0;
+	str = ft_strnew(neg + 1);
+	str[0] = '-';
+	while (tmp < 1)
+	{
+		tmp *= 10;
+		dec--;
+	}
+	while (tmp >= 10)
+	{
+		tmp /= 10;
+		dec++;
+	}
+	str[neg] = (int)tmp + 48;
+	str = ft_strcln1join(str, ft_decimal(tmp - (int)tmp, prec));
+	ft_refresh(&str);
+	str = ft_strclnjoin(str, ft_exposant(e, dec));
+	return (str);
+}
+
+char	*ft_itoa_long(long double nb, int prec)
+{
+	char		*str;
+	long double	tmp;
+	long double	tmp2;
+	int			nbrdig;
+	int			i;
+
+	nbrdig = 1;
+	tmp = (*(uintmax_t*)&nb > LDBL_MAX / 2) ? -nb : nb;
+	tmp2 = tmp;
+	str = (*(uintmax_t*)&nb > LDBL_MAX / 2) ? ft_strdup("-") : ft_strdup("");
+	while (tmp > 10)
+	{
+		tmp /= 10;
+		nbrdig++;
+	}
+	i = nbrdig;
+	while (i > 8)
+	{
+		i -= 8;
+		str = ft_strclnjoin(str, ft_integer(tmp, str, 8, 1));
+		tmp = tmp2;
+		tmp = tmp - (intmax_t)(tmp / ft_power(i, 10)) * ft_power(i, 10);
+		tmp2 = tmp;
+		while (tmp > 10)
+			tmp /= 10;
+	}
+	tmp = (prec < 1) ? ft_arrondi_double(tmp, i - 1) : tmp;
+	str = ft_strclnjoin(str, ft_integer(tmp, str, i, prec));
+	str = ft_strcln1join(str, ft_decimal(ABS(nb - ft_atof(str)), prec));
+	ft_refresh(&str);
+	return (str);
+}
+
 char	*ft_itoa_double(double nb, int prec)
 {
 	char	*str;
 	double	tmp;
 	double	tmp2;
 	int		nbrdig;
-	int		nbrdig2;
-	char	*dest;
+	int		i;
 
-	//	printf("nb : %.20f\n",nb);
 	nbrdig = 1;
-	tmp = (*(uintmax_t*)&nb > DBL_MAX / 2) ? ft_arrondi_double(-nb, prec) : ft_arrondi_double(nb, prec);
+	tmp = (*(uintmax_t*)&nb > DBL_MAX / 2) ? -nb : nb;
 	tmp2 = tmp;
 	str = (*(uintmax_t*)&nb > DBL_MAX / 2) ? ft_strdup("-") : ft_strdup("");
-	//	printf("tmp : %.20f\n",tmp);
 	while (tmp > 10)
 	{
 		tmp /= 10;
 		nbrdig++;
 	}
-	if (nbrdig < 9)
+	i = nbrdig;
+	while (i > 8)
 	{
-		tmp = (prec < 1) ? ft_arrondi_double(tmp, nbrdig - 1) : tmp;
-		str = ft_strclnjoin(str, ft_integer(tmp, str, nbrdig, prec));
-		//	printf("nb : %.20f || ft_digit : %.20f\n",nb, ft_digit(tmp, nbrdig));
-		//	printf("nb : %.20f\n",nb - ft_digit(tmp, nbrdig));
-		str = ft_strcln1join(str, ft_decimal(nb - ft_digit(tmp, nbrdig), prec));
-	}
-	else
-	{
-		str = ft_strclnjoin(str, ft_integer(tmp, str, nbrdig - 8, 1));
-		//printf("\n%s\n\n",str);
-		nbrdig2 = 1;
+		i -= 8;
+		str = ft_strclnjoin(str, ft_integer(tmp, str, 8, 1));
 		tmp = tmp2;
-		tmp -= (intmax_t)(tmp / ft_power(8, 10)) * ft_power(8, 10);
-		while (nbrdig2 < 8)
-		{
+		tmp = tmp - (intmax_t)(tmp / ft_power(i, 10)) * ft_power(i, 10);
+		tmp2 = tmp;
+		while (tmp > 10)
 			tmp /= 10;
-			nbrdig2++;
-		}
-		tmp = (prec < 1) ? ft_arrondi_double(tmp, nbrdig2 - 1) : tmp;
-		str = ft_strclnjoin(str, ft_integer(tmp, str, nbrdig2, prec));
-		//printf("\n%s\n\n",str);
-		//	printf("nb : %f\natoi : %f\n",nb, ft_atoi_double(str));
-		//	printf("abs : %f\n",ABS(nb - ft_atoi_double(str)));
-		//	printf("ft_decimal%s\n",ft_decimal(ABS(nb - ft_atoi_double(str)),prec));
-		str = ft_strcln1join(str, ft_decimal(ABS(nb - ft_atoi_double(str)), prec));
 	}
+	tmp = (prec < 1) ? ft_arrondi_double(tmp, i - 1) : tmp;
+	str = ft_strclnjoin(str, ft_integer(tmp, str, i, prec));
+	str = ft_strcln1join(str, ft_decimal(ABS(nb - ft_atof(str)), prec));
+	ft_refresh(&str);
 	return (str);
 }

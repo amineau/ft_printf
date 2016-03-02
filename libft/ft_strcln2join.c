@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcln2join.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 19:04:59 by amineau          ###   ########.fr       */
+/*   Created: 2016/03/02 14:24:06 by amineau           #+#    #+#             */
+/*   Updated: 2016/03/02 14:24:57 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-#define FORM "%.30f\n"
-
-#define ROD 2147483647
-#define INT 345442
-#define DBL 0.123986
-#define FLL 689.015L
-#define A DBL
-#include <stdio.h>
-
-int main()
+char	*ft_strcln2join(char const *s1, char const *s2)
 {
-//	double nb = FL;
-//	void	*p;
-	printf("1 : %d\n",printf(FORM, A));
-	printf("2 : %d\n",ft_printf(FORM, A));
-//ft_printf("%#jX\n",*(uintmax_t*)&nb);
-   //printf("%#jX\n",*(uintmax_t*)&nb);
-	return (0);
+	char	*dst;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!(dst = (char*)malloc(sizeof(char)
+					* (ft_strlen(s1) + ft_strlen(s2) + 1))))
+		return (NULL);
+	if (s1)
+	{
+		i--;
+		while (s1[++i])
+			dst[i] = s1[i];
+	}
+	if (s2)
+	{
+		j--;
+		while (s2[++j])
+			dst[i + j] = s2[j];
+		ft_strdel((char**)&s2);
+	}
+	dst[i + j] = '\0';
+	return (dst);
 }

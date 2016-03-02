@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 10:17:09 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/27 20:46:16 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/02 15:06:26 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		ft_arrondi(long double nb)
 {
 	if (nb - (int)nb < 0.5)
 		return ((int)nb);
-	return ((int)(nb + 1) % 10);
+	return ((int)(nb + 1));
 }
 
 long double	ft_arrondi_double(long double nb, size_t dec)
