@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 21:25:10 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:03:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define SHRT_MAX 0x7FFF
 # define USHRT_MAX 0xFFFF
 # define INT_MAX 0x7FFFFFFF
+# define LONG_MAX (long)0x7FFFFFFFFFFF
 # define UINT_MAX 0xFFFFFFFF
 # define DBL_MAX (double)0xFFFFFFFFFFFFFFFF
 # define LDBL_MAX (long double)0xFFFFFFFFFFFFFFFFFFFF

@@ -6,11 +6,26 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:57:28 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/26 08:27:37 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/03 14:56:12 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	ft_putstr_0(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == -1)
+			ft_putchar('\0');
+		else
+			ft_putchar(str[i]);
+		i++;
+	}
+}
 
 int		ft_printf(const char *format, ...)
 {
@@ -41,7 +56,7 @@ int		ft_printf(const char *format, ...)
 	res = ft_strnew(0);
 	if ((size = ft_algo(*lst, (char*)format, &res, ap)) != -1)
 	{
-		ft_putstr(res);
+		ft_putstr_0(res);
 		ft_strdel(&res);
 	}
 	/*	tmp = *lst;

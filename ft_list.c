@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:15 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 19:04:50 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/03 20:18:29 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			size_format(char *str)
 
 	type = TYPE;
 	i = 0;
-	while (str[i])
+	while (str[i] || str[i] == '%')
 	{
 		j = 0;
 		while (type[j] && type[j] != str[i])
@@ -42,20 +42,23 @@ int			size_format(char *str)
 t_format	*ft_listnew_format(char *pourc)
 {
 	t_format	*list;
+	char		*tmp;
 
+	tmp = pourc;
 	list = (t_format*)ft_memalloc(sizeof(t_format));
-	if ((list->size = size_format(pourc)) == 0)
-		return (NULL);
+//	if ((list->size = size_format(pourc)) == 0)
+//		return (NULL);
 	pourc = stock_flag(list, pourc);
 	pourc = stock_width(&list->width, pourc);
 	pourc = stock_precision(&list->precision, pourc);
 	pourc = stock_lenght(&list->lenght, pourc);
-	if (ft_strchr(TYPE, *pourc))
 		list->type = *pourc;
-	else
-		return (NULL);;
+		list->size = 1;
+	while (ft_strcmp(pourc, tmp++))
+		list->size++;
+	if (pourc[0])	
 	list->size++;
-	if (list->precision == -2 && ft_strchr("eEf",list->type))
+	if (list->precision == -2 && ft_strchr("eEfFgG",list->type))
 		list->precision = 6;
 	else if (list->precision == -2 && ft_strchr("dioux",list->type))
 		list->precision = 1;

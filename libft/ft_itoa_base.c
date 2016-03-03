@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:50:53 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 12:59:45 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:04:58 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char	*asneg(intmax_t nb, int *i, int base)
 		str[(*i)++] = '-';
 	return (str);
 }
+
 char		*ft_itoa_base(intmax_t value, int base, char c)
 {
 	char		*str;

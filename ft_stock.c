@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 21:25:08 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/03 21:03:25 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char		*stock_flag(t_format *lst, char *str)
 	else
 		lst->sign = 0;
 	lst->conv = (ft_strnchr(str, '#', i)) ? '#' : 0;
-	if ((ft_strnchr(str, '+', i) && ft_strnchr(str, ' ', i)) || (ft_strnchr(str, '-', i) && ft_strnchr(str, '0', i)))
-		return (NULL);
+	//if ((ft_strnchr(str, '+', i) && ft_strnchr(str, ' ', i)) || (ft_strnchr(str, '-', i) && ft_strnchr(str, '0', i)))
+	//	return (NULL);
 	return (&str[i]);
 }
 
@@ -70,6 +70,11 @@ char		*stock_precision(int *prec, char *pourc)
 	{
 		*prec = -1;
 		pourc += 2;
+	}
+	else if (pourc[0] == '*')
+	{
+		*prec = -1;
+		pourc++;
 	}
 	else
 		*prec = -2;
