@@ -15,7 +15,7 @@
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	size_t		size;
+	int		size;
 	char		*pourc;
 	char		*res;
 	t_format	**lst;

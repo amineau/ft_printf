@@ -41,10 +41,8 @@ char	*ft_decimal(long double nb, int prec)
 char		*ft_integer(long double nb, char *str, int nbrdig, int prec)
 {
 	int			i;
-	long double	tmp;
 
 	str = ft_strnew(nbrdig);
-	tmp = 0;
 	i = 0;
 	while (nbrdig != 0)
 	{

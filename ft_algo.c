@@ -105,7 +105,6 @@ int		ft_char(t_format *lst, char **res, va_list ap)
 	char	c;
 
 	if (lst)
-		;
 	c = va_arg(ap, unsigned int);
 	size = 1;
 	*res = ft_straddc(*res, c);
@@ -120,7 +119,7 @@ int		ft_string(t_format *lst, char **res, va_list ap)
 
 	if (!(str = va_arg(ap, char*)))
 		str = ft_strdup("(null)");
-	size = (lst->precision >= 0) ? lst->precision : ft_strlen(str);
+	size = (lst->precision >= 0) ? lst->precision : (int)ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(ft_strndup(str, size), lst->width, lst->just));
 	return (size);
 }
