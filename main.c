@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 #include <limits.h>
-#define FORM "%*.*d\n"
+#define FORM "%**d\n"
 
 #define ROD 2147483647
 #define DBL 0.33
