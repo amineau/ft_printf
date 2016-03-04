@@ -50,7 +50,7 @@ t_format	*ft_listnew_format(char *pourc)
 //		return (NULL);
 	pourc = stock_flag(list, pourc);
 	pourc = stock_width(&list->width, pourc);
-	pourc = stock_precision(&list->precision, pourc);
+	pourc = stock_precision(&list->precision, pourc, list->width);
 	pourc = stock_lenght(&list->lenght, pourc);
 		list->type = *pourc;
 		list->size = 1;

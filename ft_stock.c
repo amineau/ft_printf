@@ -62,9 +62,9 @@ char		*stock_width(int *width, char *pourc)
 	return (pourc);
 }
 
-char		*stock_precision(int *prec, char *pourc)
+char		*stock_precision(int *prec, char *pourc, int width)
 {
-	if (pourc[0] == '.' && pourc[1] != '*')
+	if ((pourc[0] == '.' && pourc[1] != '*') || (width == -1 && pourc[0] != '*'))
 		pourc = stock_digit(prec, &pourc[1]);
 	else if (pourc[1] == '*')
 	{

@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include <stdlib.h>
+# include <wchar.h>
 # include "libft/libft.h"
 /*************config linux************/
 #include <stdint.h>
@@ -51,7 +52,7 @@ char		*ft_itoa_long(long double nb, int prec);
 char		*ft_itoa_scien_long(long double nb, int prec, char c);
 char		*stock_flag(t_format *lst, char *str);
 char		*stock_width(int *width, char *pourc);
-char		*stock_precision(int *prec, char *pourc);
+char		*stock_precision(int *prec, char *pourc, int width);
 char		*stock_lenght(char **str, char *pourc);
 char		*ft_straddc(char *str, char c);
 t_format	*ft_listnew_format(char *pourc);

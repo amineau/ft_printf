@@ -42,8 +42,10 @@ void	ft_wildcard(t_format *lst, va_list ap)
 		lst->precision = va_arg(ap, int);
 		if (lst->precision < 0)
 		{
-			lst->precision = -lst->precision;
-			lst->just = '-';
+	if (ft_strchr("eEfFgG",lst->type))
+		lst->precision = 6;
+	else if (ft_strchr("dioux",lst->type))
+		lst->precision = 1;
 		}
 	}
 }
@@ -120,6 +122,7 @@ char	*ft_sign(char *str, char s)
 	}
 	return (str);
 }
+
 char	*ft_precision(char *str, int prec)
 {
 	int	t;
@@ -168,15 +171,21 @@ char	*ft_justif_string(char *str, size_t just, char f)
 	else
 		return (ft_strclnjoin(str, ft_wh(' ', just - t)));
 }
+/************************WINT_T****************************/
+/**********************************************************/
 int		ft_char(t_format *lst, char **res, va_list ap)
 {
 	int		size;
 	char	c;
+	wint_t	w;
 	char	*str;
 
 	size = 1;
+	ft_lenght_type(lst->type, &(lst->lenght));
 	if (lst->type != 'c' && lst->type != 'C')
 		c = lst->type;
+	else if (!ft_strcmp(lst->lenght, "l"))
+		w = va_arg(ap, wint_t);
 	else
 		c = va_arg(ap, unsigned int);
 	str = ft_justif_string(ft_straddc(ft_strnew(0), c), lst->width, lst->just);
@@ -184,11 +193,15 @@ int		ft_char(t_format *lst, char **res, va_list ap)
 	return (size);
 }
 
+/************************WCHAR_T****************************/
+/***********************************************************/
 int		ft_string(t_format *lst, char **res, va_list ap)
 {
 	int		size;
+
 	char	*str;
 
+	ft_lenght_type(lst->type, &(lst->lenght));
 	if (!(str = va_arg(ap, char*)))
 		str = ft_strdup("(null)");
 	size = (lst->precision >= 0) ? lst->precision : (int)ft_strlen(str);
