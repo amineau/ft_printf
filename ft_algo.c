@@ -108,6 +108,18 @@ char	*ft_scien_size(t_format *lst, va_list ap)
 
 }
 
+char	*ft_sign(char *str, char s)
+{
+	char	*sign;
+
+	if (str[0] != '-' && s)
+	{
+		sign = ft_strnew(1);
+		sign[0] = s;
+		str = ft_strclnjoin(sign, str);
+	}
+	return (str);
+}
 char	*ft_precision(char *str, int prec)
 {
 	int	t;
@@ -204,6 +216,7 @@ int		ft_float(t_format *lst, char **res, va_list ap)
 	if (lst->precision == 0 && lst->conv != '#')
 		lst->precision = -1;
 	str = ft_float_size(lst, ap);
+	str = ft_sign(str, lst->sign);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (1);
 }
@@ -213,6 +226,7 @@ int		ft_scienti(t_format *lst, char **res, va_list ap)
 	char		*str;
 
 	str = ft_scien_size(lst, ap);
+	str = ft_sign(str, lst->sign);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (1);
 }
@@ -224,8 +238,7 @@ int		ft_int(t_format *lst, char **res, va_list ap)
 
 	ft_lenght_type(lst->type, &(lst->lenght));
 	str = ft_precision(ft_signed_size(lst, 10, ap), lst->precision);
-	if (str[0] != '-' && lst->sign)
-		*res = ft_straddc(*res, lst->sign);
+	str = ft_sign(str, lst->sign);
 	size = ft_strlen(str);
 	*res = ft_strclnjoin(*res, ft_justif(str, lst->width, lst->just));
 	return (size);

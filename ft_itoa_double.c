@@ -71,7 +71,7 @@ long double	ft_atof(char *str)
 	nb = (str[0] == '-') ? -nb : nb;
 	return (nb);
 }
-
+/**********************ajouter '-' apres refresh***************************/
 void		ft_refresh(char **str)
 {
 	int		i;
@@ -100,7 +100,7 @@ void		ft_refresh(char **str)
 		i--;
 	}
 }
-
+/************************************************************************/
 char	*ft_exposant(char e, int dec)
 {
 	char	*str;
@@ -180,7 +180,6 @@ char	*ft_itoa_long(long double nb, int prec)
 	int			i;
 	nbrdig = 1;
 	tmp = (*(long double*)&nb > DBL_MAX / 2) ? -nb : nb;
-	printf("tmp : %Lf\n",tmp);
 	tmp2 = tmp;
 	str = (*(long double*)&nb > DBL_MAX / 2) ? ft_strdup("-") : ft_strdup("");
 	while (tmp > 10)
@@ -206,6 +205,15 @@ char	*ft_itoa_long(long double nb, int prec)
 	return (str);
 }
 
+double	ft_recup(double dif, double nb, int i)
+{
+	int	j;
+	
+	j = 0;
+	while (j++ < i)
+		dif *= 10;
+	return (nb - dif);
+}
 char	*ft_itoa_double(double nb, int prec)
 {
 	char	*str;
@@ -229,7 +237,7 @@ char	*ft_itoa_double(double nb, int prec)
 		i -= 8;
 		str = ft_strclnjoin(str, ft_integer(tmp, str, 8, 1));
 		tmp = tmp2;
-		tmp = tmp - (intmax_t)(tmp / ft_power(i, 10)) * ft_power(i, 10);
+		tmp = ft_recup(ft_atof(str), nb, i);
 		tmp2 = tmp;
 		while (tmp > 10)
 			tmp /= 10;
