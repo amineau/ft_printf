@@ -42,10 +42,10 @@ void	ft_wildcard(t_format *lst, va_list ap)
 		lst->precision = va_arg(ap, int);
 		if (lst->precision < 0)
 		{
-	if (ft_strchr("eEfFgG",lst->type))
-		lst->precision = 6;
-	else if (ft_strchr("dioux",lst->type))
-		lst->precision = 1;
+			if (ft_strchr("eEfFgG",lst->type))
+				lst->precision = 6;
+			else if (ft_strchr("dioux",lst->type))
+				lst->precision = 1;
 		}
 	}
 }

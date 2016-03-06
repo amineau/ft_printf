@@ -12,13 +12,13 @@
 
 #include "ft_printf.h"
 #include <limits.h>
-#define FORM "%**d\n"
+#define FORM "%x\n"
 
 #define ROD 2147483647
 #define DBL 0.33
 #define FLL -689.015
 #define FL -3.23
-#define A  3, 10, 42
+#define A 42
 #include <stdio.h>
 
 int main()

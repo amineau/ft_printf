@@ -60,7 +60,7 @@ t_format	*ft_listnew_format(char *pourc)
 	list->size++;
 	if (list->precision == -2 && ft_strchr("eEfFgG",list->type))
 		list->precision = 6;
-	else if (list->precision == -2 && ft_strchr("dioux",list->type))
+	else if (list->precision == -2 && ft_strchr("dDioOuUxX",list->type))
 		list->precision = 1;
 	return (list);
 }
