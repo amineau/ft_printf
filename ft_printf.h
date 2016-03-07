@@ -45,7 +45,7 @@ typedef struct	s_format
 }				t_format;
 
 int			ft_printf(const char *format, ...);
-int			ft_algo(t_format *lst, char *str, char **res, va_list ap);
+int			ft_algo(t_format *lst, char *str, va_list ap);
 char		*ft_itoa_double(double nb, int prec);
 char		*ft_itoa_scien(double nb, int prec, char c);
 char		*ft_itoa_long(long double nb, int prec);

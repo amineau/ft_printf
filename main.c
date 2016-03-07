@@ -12,23 +12,19 @@
 
 #include "ft_printf.h"
 #include <limits.h>
-#define FORM "%x\n"
+#define FORM "%s %d    %%\n"
 
 #define ROD 2147483647
 #define DBL 0.33
 #define FLL -689.015
 #define FL -3.23
-#define A 42
+#define A "42", 42
 #include <stdio.h>
 
 int main()
 {
-//	double nb = FL;
-	void	*p = 1;
-	int	*n;
+	//void	*p = 1;
 	printf("1 : %d\n",printf(FORM, A));
 	printf("2 : %d\n",ft_printf(FORM, A));
-//ft_printf("%#jX\n",*(uintmax_t*)&nb);
-   //printf("%#jX\n",*(uintmax_t*)&nb);
 	return (0);
 }
