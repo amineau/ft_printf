@@ -21,10 +21,7 @@ char	*ft_straddc(char *str, char c)
 	if (!(dest = (char*)ft_memalloc(sizeof(char*) * (i + 1))))
 		return (NULL);
 	dest = ft_strcpy(dest, (const char*)str);
-	if (c)
 	dest[i] = (char)c;
-	else
-	dest[i] = (char)-1;
 	dest[i + 1] = '\0';
 	if (str)
 		ft_strdel(&str);

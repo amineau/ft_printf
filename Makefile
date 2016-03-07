@@ -23,6 +23,7 @@ SRC=ft_printf.c \
 	ft_straddc.c \
 	ft_itoa_double.c \
 	ft_arrondi.c \
+	ft_nbrdigit.c \
 
 OBJ= $(SRC:.c=.o)
 

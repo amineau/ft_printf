@@ -104,12 +104,15 @@ void		ft_refresh(char **str)
 char	*ft_exposant(char e, int dec)
 {
 	char	*str;
+	int	i;
 
-	str = ft_strnew(4);
+	str = ft_strnew(2);
 	str[0] = e;
 	str[1] = (dec < 0) ? '-' : '+';
-	str[2] = (ABS(dec) / 10) + 48;
-	str[3] = (ABS(dec) % 10) + 48;
+	if (ABS(dec) < 10)
+		str = ft_strclnjoin(ft_straddc(str, '0'), ft_itoa(ABS(dec)));
+	else
+		str = ft_strclnjoin(str, ft_itoa(ABS(dec)));
 	return (str);
 }
 

@@ -17,8 +17,7 @@ char	*ft_wh(char c, int n)
 	char	*str;
 	int		i;
 
-	if (!(str = (char*)ft_memalloc(sizeof(char) * (n + 1))))
-		return (NULL);
+	str = ft_strnew(n + 1);
 	i = 0;
 	while (i != n)
 		str[i++] = c;
@@ -180,7 +179,6 @@ int		ft_char(t_format *lst, va_list ap)
 	wint_t	w;
 	char	*str;
 
-	size = 1;
 	ft_lenght_type(lst->type, &(lst->lenght));
 	if (lst->type != 'c' && lst->type != 'C')
 		c = lst->type;
@@ -188,9 +186,19 @@ int		ft_char(t_format *lst, va_list ap)
 		w = va_arg(ap, wint_t);
 	else
 		c = va_arg(ap, unsigned int);
-	str = ft_justif_string(ft_straddc(ft_strnew(0), c), lst->width, lst->just);
-	ft_putstr(str);
-	return (ft_strlen(str));
+	size = (lst->width <= 1) ? 0 : lst->width - 1;
+	if (lst->just == '-')
+	{
+		ft_putchar(c);
+		ft_putstr(str = ft_wh(' ', size));
+	}
+	else
+	{
+		ft_putstr(str = ft_wh(lst->just, size));
+		ft_putchar(c);
+	}
+	size = ft_strlen(str) + 1;
+	return (size);
 }
 
 /************************WCHAR_T****************************/
@@ -206,25 +214,15 @@ int		ft_string(t_format *lst, va_list ap)
 	size = (lst->precision >= 0) ? lst->precision : (int)ft_strlen(str);
 	str = ft_justif_string(ft_strndup(str, size), lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
-}
-
-int		nbrdigit(uintmax_t nb)
-{
-	int pow;
-
-	pow = 0;
-	while (nb / 10 != 0)
-	{
-		nb = nb / 10;
-		pow++;
-	}
-	return (pow);
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_float(t_format *lst, va_list ap)
 {
 	char		*str;
+	int	size;
 
 	if (lst->precision == 0 && lst->conv != '#')
 		lst->precision = -1;
@@ -232,47 +230,61 @@ int		ft_float(t_format *lst, va_list ap)
 	str = ft_sign(str, lst->sign);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_scienti(t_format *lst, va_list ap)
 {
 	char		*str;
+	int	size;
 
+	if (lst->precision == 0 && lst->conv != '#')
+		lst->precision = -1;
 	str = ft_scien_size(lst, ap);
 	str = ft_sign(str, lst->sign);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_int(t_format *lst, va_list ap)
 {
 	char		*str;
+	int	size;
 
 	ft_lenght_type(lst->type, &(lst->lenght));
 	str = ft_precision(ft_signed_size(lst, 10, ap), lst->precision);
 	str = ft_sign(str, lst->sign);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_unint(t_format *lst, va_list ap)
 {
 	char	*str;
+	int	size;
 
 	ft_lenght_type(lst->type, &(lst->lenght));
 	str = ft_precision(ft_unsigned_size(lst, 10, ap), lst->precision);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_octal(t_format *lst, va_list ap)
 {
 	char	*str;
 	char	*dest;
+	int	size;
 
 	dest = NULL;
 	ft_lenght_type(lst->type, &(lst->lenght));
@@ -282,13 +294,16 @@ int		ft_octal(t_format *lst, va_list ap)
 	str = ft_strclnjoin(dest, str);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_binaire(t_format *lst, va_list ap)
 {
 	char	*str;
 	char	*dest;
+	int	size;
 
 	dest = NULL;
 	ft_lenght_type(lst->type, &(lst->lenght));
@@ -302,26 +317,32 @@ int		ft_binaire(t_format *lst, va_list ap)
 	str = ft_strclnjoin(dest, str);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_adrpoint(t_format *lst, va_list ap)
 {
 	char	*str;
 	char	*dest;
+	int	size;
 
 	dest = ft_straddc(ft_strdup("0"), lst->type + 8);
 	str = ft_precision(ft_itoa_unsi_base(va_arg(ap, uintmax_t), 16, lst->type + 8), lst->precision);
 	str = ft_strclnjoin(dest, str);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_hexa(t_format *lst, va_list ap)
 {
 	char	*str;
 	char	*dest;
+	int	size;
 
 	dest = NULL;
 	str = ft_precision(ft_unsigned_size(lst, 16, ap), lst->precision);
@@ -334,7 +355,9 @@ int		ft_hexa(t_format *lst, va_list ap)
 	str = ft_strclnjoin(dest, str);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
-	return (ft_strlen(str));
+	size = ft_strlen(str);
+	ft_strdel(&str);
+	return (size);
 }
 
 int		ft_form(t_format **lst, char **format, va_list ap)

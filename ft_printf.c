@@ -12,21 +12,6 @@
 
 #include "ft_printf.h"
 
-void	ft_putstr_0(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == -1)
-			ft_putchar('\0');
-		else
-			ft_putchar(str[i]);
-		i++;
-	}
-}
-
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
