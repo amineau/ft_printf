@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:15 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/08 16:19:37 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/08 18:59:05 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_format	*ft_listnew_format(char *pourc)
 		list->precision = 6;
 	else if (list->precision == -2 && ft_strchr("dDioOuUxXbB",list->type))
 		list->precision = 1;
-	else if (ft_strchr("dDioOuUxXbB", list->type) && list->precision < list->width && list->just == '0')
+	else if (ft_strchr("dDioOuUxXbB", list->type) && list->precision < list->width && list->just == '0' && list->precision >= 0)
 		list->just = ' ';
 	return (list);
 }

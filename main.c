@@ -6,19 +6,19 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/08 16:46:16 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/08 18:59:07 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <limits.h>
-#define FORM "%*3d\n"
+#define FORM "%05.*d\n"
 
 #define ROD 2147483647
 #define DBL 0.33
 #define FLL -689.015
 #define FL -3.23
-#define A 5, 0
+#define A  -4, 42
 #include <stdio.h>
 
 int main()
