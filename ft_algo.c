@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 21:03:21 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/08 16:46:13 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_wildcard(t_format *lst, va_list ap)
 			lst->just = '-';
 		}
 	}
+	else if (lst->wild_width)
+		va_arg(ap, int);
 	if (lst->precision == -1)
 	{
 		lst->precision = va_arg(ap, int);
@@ -43,7 +45,7 @@ void	ft_wildcard(t_format *lst, va_list ap)
 		{
 			if (ft_strchr("eEfFgG",lst->type))
 				lst->precision = 6;
-			else if (ft_strchr("dioux",lst->type))
+			else if (ft_strchr("dDioOuUxXbB",lst->type))
 				lst->precision = 1;
 		}
 	}
@@ -146,7 +148,7 @@ char	*ft_justif(char *str, size_t just, char f)
 	t = ft_strlen(str);
 	if (just <= t)
 		return (str);
-	if (f == '0' && (str[0] == '-' || str[0] == '+'))
+	if (f == '0' && (ft_strchr("-+ ", str[0])))
 	{
 		ptr = ft_strnew(1);
 		ptr[0] = str[0];
@@ -288,6 +290,7 @@ int		ft_octal(t_format *lst, va_list ap)
 
 	dest = NULL;
 	ft_lenght_type(lst->type, &(lst->lenght));
+	lst->precision = (lst->conv == '#') ? lst->precision - 1 : lst->precision;
 	str = ft_precision(ft_unsigned_size(lst, 8, ap), lst->precision);
 	if (lst->conv == '#' && ft_strcmp(str, "0") != 0)
 		dest = ft_strdup("0");

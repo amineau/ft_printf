@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 21:03:25 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/08 16:46:11 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*stock_flag(t_format *lst, char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] == '0' || str[i] == '-' || str[i] == '+' || str[i] == ' ' || str[i] == '#')
+	while (ft_strchr("0-+ #", str[i]) && str[i])
 		i++;
 	if (ft_strnchr(str, '-', i)) 
 		lst->just = '-';
@@ -48,17 +48,23 @@ char		*stock_flag(t_format *lst, char *str)
 	return (&str[i]);
 }
 
-char		*stock_width(int *width, char *pourc)
+char		*stock_width(int *width, int *wild, char *pourc)
 {
+	*wild = 0;
 	if (ft_isdigit(pourc[0]))
 		pourc = stock_digit(width, pourc);	
-	else if (pourc[0] == '*')
+	else
+		*width = 0;
+	if (pourc[0] == '*')
 	{
 		*width = -1;
 		pourc++;
+		if (ft_isdigit(pourc[0]))
+		{
+			pourc = stock_digit(width, pourc);	
+			*wild = 1;
+		}
 	}
-	else
-		*width = 0;
 	return (pourc);
 }
 
@@ -70,11 +76,6 @@ char		*stock_precision(int *prec, char *pourc, int width)
 	{
 		*prec = -1;
 		pourc += 2;
-	}
-	else if (pourc[0] == '*')
-	{
-		*prec = -1;
-		pourc++;
 	}
 	else
 		*prec = -2;
@@ -88,7 +89,7 @@ char		*stock_lenght(char **str, char *pourc)
 		*str = ft_strndup(pourc, 2);
 		pourc += 2;
 	}
-	else if (pourc[0] == 'h' || pourc[0] == 'l' || pourc[0] == 'j' || pourc[0] == 'z' || pourc[0] == 'L')
+	else if (ft_strchr("hljzL", pourc[0]) && pourc[0])
 	{		
 		*str = ft_strndup(pourc, 1);
 		pourc++;

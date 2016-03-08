@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:15 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 20:18:29 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/08 16:19:37 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ t_format	*ft_listnew_format(char *pourc)
 
 	tmp = pourc;
 	list = (t_format*)ft_memalloc(sizeof(t_format));
-//	if ((list->size = size_format(pourc)) == 0)
-//		return (NULL);
 	pourc = stock_flag(list, pourc);
-	pourc = stock_width(&list->width, pourc);
+	pourc = stock_width(&list->width, &list->wild_width, pourc);
 	pourc = stock_precision(&list->precision, pourc, list->width);
 	pourc = stock_lenght(&list->lenght, pourc);
 		list->type = *pourc;
@@ -60,8 +58,10 @@ t_format	*ft_listnew_format(char *pourc)
 	list->size++;
 	if (list->precision == -2 && ft_strchr("eEfFgG",list->type))
 		list->precision = 6;
-	else if (list->precision == -2 && ft_strchr("dDioOuUxX",list->type))
+	else if (list->precision == -2 && ft_strchr("dDioOuUxXbB",list->type))
 		list->precision = 1;
+	else if (ft_strchr("dDioOuUxXbB", list->type) && list->precision < list->width && list->just == '0')
+		list->just = ' ';
 	return (list);
 }
 

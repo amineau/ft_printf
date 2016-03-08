@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 17:03:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/08 16:19:57 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_format
 	char			sign;
 	char			conv;
 	int				width;
+	int				wild_width;
 	int				precision;
 	char			*lenght;
 	char			type;
@@ -51,7 +52,7 @@ char		*ft_itoa_scien(double nb, int prec, char c);
 char		*ft_itoa_long(long double nb, int prec);
 char		*ft_itoa_scien_long(long double nb, int prec, char c);
 char		*stock_flag(t_format *lst, char *str);
-char		*stock_width(int *width, char *pourc);
+char		*stock_width(int *width, int *wild,char *pourc);
 char		*stock_precision(int *prec, char *pourc, int width);
 char		*stock_lenght(char **str, char *pourc);
 char		*ft_straddc(char *str, char c);
