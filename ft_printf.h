@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/08 16:19:57 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/10 16:20:32 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ char		*stock_lenght(char **str, char *pourc);
 char		*ft_straddc(char *str, char c);
 t_format	*ft_listnew_format(char *pourc);
 int			ft_listadd_format(t_format *list, t_format **begin);
-int		nbrdigit(uintmax_t nb);
+int			nbrdigit(uintmax_t nb);
+int			ft_cntwind(unsigned int w);
+void		ft_putwint(unsigned int w, int oc);
 void		ft_lstdel_format(t_format *lst);
-int		ft_arrondi(long double nb);
+int			ft_arrondi(long double nb);
 long double	ft_arrondi_double(long double nb, size_t dec);
 
 #endif
