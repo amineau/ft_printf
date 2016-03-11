@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putwchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/11 18:07:04 by amineau          ###   ########.fr       */
+/*   Created: 2016/03/11 17:18:47 by amineau           #+#    #+#             */
+/*   Updated: 2016/03/11 18:06:57 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <limits.h>
-#define FORM "%C\n"
 
-#define ROD 2147483647
-#define DBL 0.33
-#define FLL -689.015
-#define FL -3.23
-#define A  L'요'
-#include <stdio.h>
-#include <wchar.h>
-
-int main()
+int		*ft_cntwchar(wchar_t *w)
 {
-	//void	*p = 1;
-	printf("1 : %d\n",printf(FORM, A));
-	printf("2 : %d\n",ft_printf(FORM, A));
-	return (0);
+	int 			i;
+	int				size;
+	unsigned int	*t;
+
+	i = -1;
+	size = ft_strlen(w);
+	if (!(t = (unsigned int*)malloc(sizeof(unsigned int) *size)))
+		return (0);
+	while (w[++i])
+		t[i] = (unsigned int)w[i];
+	return (t);
+}
+
+int		ft_count(int *t)
+{
+	int i;
+}
+
+void	ft_putwchar(wchar_t *w, int *t)
+{
+	int i;
+
+	i = -1;
+	while (w[++i])
+		ft_putwint(w[i], t[i]);
+	free(&t);
 }

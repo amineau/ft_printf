@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/10 19:31:18 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/11 18:07:02 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,7 +363,8 @@ int		ft_wint(t_format *lst, va_list ap)
 	char	*str;
 
 	w = va_arg(ap, wint_t);
-	size = ft_cntwint(w);
+	if ((size = ft_cntwint(w)) == -1)
+		return (size);
 	blanc = (lst->width <= size) ? 0 : lst->width - 1;
 	if (lst->just == '-')
 	{
@@ -380,22 +381,22 @@ int		ft_wint(t_format *lst, va_list ap)
 
 int		ft_wchar(t_format *lst, va_list ap)
 {
-	wint_t	w;
+	wchar_t	*w;
 	int		size;
 	char	*str;
 
-	w = va_arg(ap, wint_t);
+	w = va_arg(ap, wchar_t*);
 	if (lst->just == '-')
 	{
-		size = ft_cntwint(w);
-		ft_putwint(w, size);
+		size = ft_cntwchar(w);
+		ft_putwchar(w, size);
 		ft_putstr(str = ft_wh(' ', size - 1));
 	}
 	else
 	{
-		size = ft_cntwint(w);
+		size = ft_cntwchar(w);
 		ft_putstr(str = ft_wh(lst->just, size - 1));
-		ft_putwint(w, size);
+		ft_putwchar(w, size);
 	}
 	return (size);
 }
@@ -410,14 +411,14 @@ int		ft_form(t_format **lst, char **format, va_list ap)
 	if (tmp->size != 1)
 	{
 		ft_wildcard(*lst, ap);
-		if (tmp->type == 's')
-			size = ft_string(tmp, ap);
-		else if (tmp->type == 'S' || (tmp->type == 's' && ft_strcmp(tmp->lenght, "l") == 0))
+		if (tmp->type == 'S' || (tmp->type == 's' && ft_strcmp(tmp->lenght, "l") == 0))
 			size = ft_wchar(tmp, ap);
-		else if (tmp->type == 'c')
-			size = ft_char(tmp, ap);
+		else if (tmp->type == 's')
+			size = ft_string(tmp, ap);
 		else if (tmp->type == 'C' || (tmp->type == 'c' && ft_strcmp(tmp->lenght, "l") == 0))
 			size = ft_wint(tmp, ap);
+		else if (tmp->type == 'c')
+			size = ft_char(tmp, ap);
 		else if (tmp->type == 'd' || tmp->type == 'i' || tmp->type == 'D')
 			size = ft_int(tmp, ap);
 		else if (tmp->type == 'f' || tmp->type == 'F')
@@ -445,7 +446,8 @@ int		ft_form(t_format **lst, char **format, va_list ap)
 
 int		ft_algo(t_format *list, char *format, va_list ap)
 {
-	int		size;
+	int	size;
+	int	res;
 
 	size = 0;
 	while (*format)
@@ -463,7 +465,11 @@ int		ft_algo(t_format *list, char *format, va_list ap)
 			size++;
 		}
 		else
-			size += ft_form(&list, &format, ap);
+		{
+			if ((res = ft_form(&list, &format, ap)) == -1)
+				return (-1);
+			size += res;
+		}
 	}
 	return (size);
 }
