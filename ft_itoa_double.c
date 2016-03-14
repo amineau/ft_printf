@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:28:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 14:03:58 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/14 20:24:41 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,14 @@ char	*ft_itoa_scien(double nb, int prec, char e)
 	return (str);
 }
 
+long double	ft_recup_long(long double dif, long double nb, int i)
+{
+	int	j;
+	j = 0;
+	while (j++ < i)
+		dif *= 10;
+	return (ABS(nb - dif));
+}
 char	*ft_itoa_long(long double nb, int prec)
 {
 	char		*str;
@@ -181,10 +189,12 @@ char	*ft_itoa_long(long double nb, int prec)
 	long double	tmp2;
 	int			nbrdig;
 	int			i;
+
 	nbrdig = 1;
-	tmp = (*(long double*)&nb > DBL_MAX / 2) ? -nb : nb;
+	i = 0;
+	tmp = (*(uintmax_t*)&nb >> 63 == 1) ? -nb : nb;
 	tmp2 = tmp;
-	str = (*(long double*)&nb > DBL_MAX / 2) ? ft_strdup("-") : ft_strdup("");
+	str = (*(uintmax_t*)&nb >> 63 == 1) ? ft_strdup("-") : ft_strdup("");
 	while (tmp > 10)
 	{
 		tmp /= 10;
@@ -196,7 +206,7 @@ char	*ft_itoa_long(long double nb, int prec)
 		i -= 8;
 		str = ft_strclnjoin(str, ft_integer(tmp, str, 8, 1));
 		tmp = tmp2;
-		tmp = tmp - (intmax_t)(tmp / ft_power(i, 10)) * ft_power(i, 10);
+		tmp = ft_recup_long(ft_atof(str), nb, i);
 		tmp2 = tmp;
 		while (tmp > 10)
 			tmp /= 10;
@@ -208,14 +218,30 @@ char	*ft_itoa_long(long double nb, int prec)
 	return (str);
 }
 
+char	*ft_nan_or_inf(double nb)
+{
+	if ((*(uintmax_t*)&nb >> 52) % 800 == 0x7FF)
+	{
+		if (*(uintmax_t*)&nb % 8000000000000 == 0)
+		{
+			if (*(uintmax_t*)&nb >> 63 == 1)
+				return (ft_strdup("-inf"));
+			else
+				return (ft_strdup("inf"));
+		}
+		else
+			return (ft_strdup("NaN"));
+	}
+	return (NULL);
+}
+
 double	ft_recup(double dif, double nb, int i)
 {
 	int	j;
-	
 	j = 0;
 	while (j++ < i)
 		dif *= 10;
-	return (nb - dif);
+	return (ABS(nb - dif));
 }
 char	*ft_itoa_double(double nb, int prec)
 {
@@ -224,11 +250,13 @@ char	*ft_itoa_double(double nb, int prec)
 	double	tmp2;
 	int		nbrdig;
 	int		i;
-
+		
+	if ((str = ft_nan_or_inf(nb)))
+		return (str);
 	nbrdig = 1;
-	tmp = (*(uintmax_t*)&nb > DBL_MAX / 2) ? -nb : nb;
+	tmp = (*(uintmax_t*)&nb >> 63 == 1) ? -nb : nb;
 	tmp2 = tmp;
-	str = (*(uintmax_t*)&nb > DBL_MAX / 2) ? ft_strdup("-") : ft_strdup("");
+	str = (*(uintmax_t*)&nb >> 63 == 1) ? ft_strdup("-") : ft_strdup("");
 	while (tmp > 10)
 	{
 		tmp /= 10;

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 17:18:47 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/14 17:35:01 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/14 18:17:22 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,24 @@ unsigned int	ft_wcharlen(wchar_t *w)
 	while (w[i])
 		i++;
 	return (i);
+}
+
+wchar_t	*ft_wcharndup(wchar_t *s1, size_t n)
+{
+
+	wchar_t	*s2;
+	size_t	i;
+
+	if (!(s2 = (wchar_t*)malloc(sizeof(wchar_t) * (ft_wcharlen(s1) + 1))))
+		return (NULL);
+	i = 0;
+	while (s1[i] && i < n)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
 }
 
 int	*ft_cntwchar(wchar_t **w, int prec)
@@ -41,6 +59,7 @@ int	*ft_cntwchar(wchar_t **w, int prec)
 	}
 	if (sum > prec && prec >= 0)
 		i--;
+	*w = ft_wcharndup(*w, i);
 	t[i] = 0;
 	return (t);
 }
@@ -60,15 +79,13 @@ int		ft_sum(int *t)
 void	ft_put(wchar_t *w, int *t)
 {
 	int	i;
-	int	sum;
 
 	i = 0;
-	sum = 0;
-		while (w[i] && sum <= ft_sum(t))
-		{
-			ft_putwint(w[i], t[i]);
-			sum += t[i++];
-		}
+	while (w[i])
+	{
+		ft_putwint(w[i], t[i]);
+		i++;
+	}
 }
 
 int		ft_putwchar(wchar_t *w, t_format *lst)

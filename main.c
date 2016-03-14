@@ -6,19 +6,19 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/14 18:04:57 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/14 20:24:46 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define FORM "{%15.4S}\n"
-
+#define FORM "{%f}\n"
 #define ROD 2147483647
 #define DBL 0.33
 #define FLL -689.015
 #define FL -3.23
-#define A  L"我是一只猫。"
+//#define A  L"我是一只猫。"
 //#define A  L'요'
+#define A 
 #include <stdio.h>
 
 int main()
