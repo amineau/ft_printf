@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/11 18:07:02 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/14 17:59:05 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,12 @@ char	*ft_precision(char *str, int prec)
 	return (ft_strclnjoin(ft_wh('0', prec - t), str));
 }
 
-char	*ft_justif(char *str, size_t just, char f)
+char	*ft_justif(char *str, int just, char f)
 {
-	size_t	t;
+	int		t;
 	char	*ptr;
 
-	t = ft_strlen(str);
+	t = (int)ft_strlen(str);
 	if (just <= t)
 		return (str);
 	if (f == '0' && (ft_strchr("-+ ", str[0])))
@@ -203,7 +203,7 @@ int		ft_string(t_format *lst, va_list ap)
 	char	*str;
 	int	size;
 
-	if (!(str = va_arg(ap, char*)))
+	if (!ap || !(str = va_arg(ap, char*)))
 		str = ft_strdup("(null)");
 	size = (lst->precision >= 0) ? lst->precision : (int)ft_strlen(str);
 	str = ft_justif_string(ft_strndup(str, size), lst->width, lst->just);
@@ -308,9 +308,22 @@ int		ft_binaire(t_format *lst, va_list ap)
 		dest = ft_strnew(2);
 		dest[0] = '0';
 		dest[1] = lst->type;
-	}
+		if (lst->just == '0')
+		{
+	str = ft_justif(str, lst->width - 2, lst->just);
+	str = ft_strclnjoin(dest, str);
+		}
+		else
+		{
 	str = ft_strclnjoin(dest, str);
 	str = ft_justif(str, lst->width, lst->just);
+		}
+	}
+	else
+	{
+	str = ft_strclnjoin(dest, str);
+	str = ft_justif(str, lst->width, lst->just);
+	}
 	ft_putstr(str);
 	size = ft_strlen(str);
 	ft_strdel(&str);
@@ -325,8 +338,16 @@ int		ft_adrpoint(t_format *lst, va_list ap)
 
 	dest = ft_straddc(ft_strdup("0"), lst->type + 8);
 	str = ft_precision(ft_itoa_unsi_base(va_arg(ap, uintmax_t), 16, lst->type + 8), lst->precision);
+	if (lst->just == '0')
+	{
+	str = ft_justif(str, lst->width - 2, lst->just);
+	str = ft_strclnjoin(dest, str);
+	}
+	else
+	{
 	str = ft_strclnjoin(dest, str);
 	str = ft_justif(str, lst->width, lst->just);
+	}
 	ft_putstr(str);
 	size = ft_strlen(str);
 	ft_strdel(&str);
@@ -337,7 +358,7 @@ int		ft_hexa(t_format *lst, va_list ap)
 {
 	char	*str;
 	char	*dest;
-	int	size;
+	int		size;
 
 	dest = NULL;
 	str = ft_precision(ft_unsigned_size(lst, 16, ap), lst->precision);
@@ -346,9 +367,22 @@ int		ft_hexa(t_format *lst, va_list ap)
 		dest = ft_strnew(2);
 		dest[0] = '0';
 		dest[1] = lst->type;
-	}
+		if (lst->just == '0')
+		{
+	str = ft_justif(str, lst->width - 2, lst->just);
+	str = ft_strclnjoin(dest, str);
+		}
+		else
+		{
 	str = ft_strclnjoin(dest, str);
 	str = ft_justif(str, lst->width, lst->just);
+		}
+	}
+	else
+	{
+	str = ft_strclnjoin(dest, str);
+	str = ft_justif(str, lst->width, lst->just);
+	}
 	ft_putstr(str);
 	size = ft_strlen(str);
 	ft_strdel(&str);
@@ -383,21 +417,13 @@ int		ft_wchar(t_format *lst, va_list ap)
 {
 	wchar_t	*w;
 	int		size;
+	int		*t;
 	char	*str;
 
-	w = va_arg(ap, wchar_t*);
-	if (lst->just == '-')
-	{
-		size = ft_cntwchar(w);
-		ft_putwchar(w, size);
-		ft_putstr(str = ft_wh(' ', size - 1));
-	}
+	if (!(w = va_arg(ap, wchar_t*)))
+		size = ft_string(lst, NULL);
 	else
-	{
-		size = ft_cntwchar(w);
-		ft_putstr(str = ft_wh(lst->just, size - 1));
-		ft_putwchar(w, size);
-	}
+		size = ft_putwchar(w, lst);
 	return (size);
 }
 

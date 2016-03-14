@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/10 19:00:32 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/14 18:06:26 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <stdlib.h>
 # include <wchar.h>
 # include "libft/libft.h"
-/*************config linux************/
-#include <stdint.h>
-/*************************************/
 # define TYPE "sSpdDioOfFuUxXcCbBeE"
 # define ABS(x) (((x) < 0) ? -(x) : (x))
 # define SHRT_MAX 0x7FFF
@@ -56,11 +53,13 @@ char		*stock_width(int *width, int *wild,char *pourc);
 char		*stock_precision(int *prec, char *pourc, int width);
 char		*stock_lenght(char **str, char *pourc);
 char		*ft_straddc(char *str, char c);
+char		*ft_wh(char c, int n);
 t_format	*ft_listnew_format(char *pourc);
 int			ft_listadd_format(t_format *list, t_format **begin);
 int			nbrdigit(uintmax_t nb);
 int			ft_cntwint(unsigned int w);
 void		ft_putwint(unsigned int w, int oc);
+int			ft_putwchar(wchar_t *w, t_format *lst);
 void		ft_lstdel_format(t_format *lst);
 int			ft_arrondi(long double nb);
 long double	ft_arrondi_double(long double nb, size_t dec);

@@ -6,7 +6,7 @@
 #    By: amineau <amineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/25 13:15:17 by amineau           #+#    #+#              #
-#    Updated: 2016/03/10 16:20:51 by amineau          ###   ########.fr        #
+#    Updated: 2016/03/14 12:28:51 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC=ft_printf.c \
 	ft_arrondi.c \
 	ft_nbrdigit.c \
 	ft_putwint.c \
+	ft_putwchar.c \
 
 OBJ= $(SRC:.c=.o)
 

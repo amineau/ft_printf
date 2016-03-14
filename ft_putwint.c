@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:29:19 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/11 18:06:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/14 14:59:35 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ void	ft_putwint(unsigned int w, int oc)
 		t = ft_threebit(w);
 	else if (oc == 4)
 		t = ft_fourbit(w);
+	else
+		return;
 	i = 0;
 	while (i < oc)
 		write(1, &t[i++], 1);
-	free(&t);
+	ft_memdel((void**)&t);
 }
