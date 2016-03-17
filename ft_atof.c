@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 11:25:11 by amineau          ###   ########.fr       */
+/*   Created: 2016/03/17 10:26:26 by amineau           #+#    #+#             */
+/*   Updated: 2016/03/17 10:33:41 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define FORM "%\n"
-#define ROD 2147483647
-#define DBL 0.33
-#define FLL -689.015
-#define FL -3.23
-//#define A  L"我是一只猫。"
-//#define A  L'요'
-#define A 12
-#include <stdio.h>
 
-int main()
+long double	ft_atof(char *str)
 {
-	void	*p;
-	printf("1 : %d\n",printf(FORM, A));
-	printf("2 : %d\n",ft_printf(FORM, A));
-	return (0);
+	long double	nb;
+	int			size;
+	int			i;
+
+	size = ft_strlen(str);
+	i = (str[0] == '-') ? 1 : 0;
+	nb = 0;
+	while (i < size)
+		nb = nb * 10 + str[i++] - 48;	
+	nb = (str[0] == '-') ? -nb : nb;
+	return (nb);
 }

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 12:57:28 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 14:56:12 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/16 16:08:29 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	int		size;
+	int			size;
 	char		*pourc;
 	t_format	**lst;
 
@@ -23,7 +23,7 @@ int		ft_printf(const char *format, ...)
 	va_start(ap, format);
 	pourc = (char*)format;
 	while (pourc)
-	{	
+	{
 		if ((pourc = ft_strchr(pourc, '%')))
 		{
 			pourc++;

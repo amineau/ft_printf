@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_cntwint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 11:25:11 by amineau          ###   ########.fr       */
+/*   Created: 2016/03/16 16:14:33 by amineau           #+#    #+#             */
+/*   Updated: 2016/03/16 16:15:32 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define FORM "%\n"
-#define ROD 2147483647
-#define DBL 0.33
-#define FLL -689.015
-#define FL -3.23
-//#define A  L"我是一只猫。"
-//#define A  L'요'
-#define A 12
-#include <stdio.h>
 
-int main()
+int	ft_cntwint(unsigned int w)
 {
-	void	*p;
-	printf("1 : %d\n",printf(FORM, A));
-	printf("2 : %d\n",ft_printf(FORM, A));
-	return (0);
+	if (w < 0x80)
+		return (1);
+	if (w < 0x800)
+		return (2);
+	if (w < 0x10000)
+		return (3);
+	if (w < 0x200000)
+		return (4);
+	return (-1);
 }

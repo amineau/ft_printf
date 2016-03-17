@@ -6,24 +6,11 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:29:19 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/14 19:15:26 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/16 16:16:42 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_cntwint(unsigned int w)
-{
-	if (w < 0x80)
-		return (1);
-	if (w < 0x800)
-		return (2);
-	if (w < 0x10000)
-		return (3);
-	if (w < 0x200000)
-		return (4);
-	return (-1);
-}
 
 int		*ft_onebit(unsigned int w)
 {
@@ -85,7 +72,7 @@ void	ft_putwint(unsigned int w, int oc)
 	else if (oc == 4)
 		t = ft_fourbit(w);
 	else
-		return;
+		return ;
 	i = 0;
 	while (i < oc)
 		write(1, &t[i++], 1);

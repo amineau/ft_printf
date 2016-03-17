@@ -6,7 +6,7 @@
 #    By: amineau <amineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/25 13:15:17 by amineau           #+#    #+#              #
-#    Updated: 2016/03/14 12:28:51 by amineau          ###   ########.fr        #
+#    Updated: 2016/03/17 11:25:09 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,15 @@ SRC=ft_printf.c \
 	ft_algo.c \
 	ft_straddc.c \
 	ft_itoa_double.c \
+	ft_itoa_scien.c \
+	ft_itoa_fonc.c \
 	ft_arrondi.c \
 	ft_nbrdigit.c \
 	ft_putwint.c \
 	ft_putwchar.c \
+	ft_cntwint.c \
+	ft_libft_wchar.c \
+	ft_atof.c \
 
 OBJ= $(SRC:.c=.o)
 
@@ -40,7 +45,7 @@ $(NAME):
 	ar r $(NAME) $(OBJ)
 	ranlib $(NAME)
 ss:
-	make -C $(LFTPATCH) re
+	make -C $(LFTPATCH)
 	$(CC) $(FLAGS) -c $(SRC) main.c
 	$(CC) $(OBJ) main.o $(LIBS) -o $(EXE)
 

@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_libft_wchar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/25 13:15:39 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 11:25:11 by amineau          ###   ########.fr       */
+/*   Created: 2016/03/16 16:19:54 by amineau           #+#    #+#             */
+/*   Updated: 2016/03/16 16:22:09 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define FORM "%\n"
-#define ROD 2147483647
-#define DBL 0.33
-#define FLL -689.015
-#define FL -3.23
-//#define A  L"我是一只猫。"
-//#define A  L'요'
-#define A 12
-#include <stdio.h>
 
-int main()
+unsigned int	ft_wcharlen(wchar_t *w)
 {
-	void	*p;
-	printf("1 : %d\n",printf(FORM, A));
-	printf("2 : %d\n",ft_printf(FORM, A));
-	return (0);
+	unsigned int	i;
+
+	i = 0;
+	while (w[i])
+		i++;
+	return (i);
+}
+
+wchar_t			*ft_wcharndup(wchar_t *s1, size_t n)
+{
+	wchar_t	*s2;
+	size_t	i;
+
+	if (!(s2 = (wchar_t*)malloc(sizeof(wchar_t) * (ft_wcharlen(s1) + 1))))
+		return (NULL);
+	i = 0;
+	while (s1[i] && i < n)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
 }

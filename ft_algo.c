@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 23:15:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/14 20:24:43 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/16 16:33:03 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,15 @@ void	ft_wildcard(t_format *lst, va_list ap)
 char	*ft_lenght_type(char c, char **str)
 {
 	if (ft_isupper(c) == 1)
-		*str = ft_strcln1join(*str, "l");
+	{
+		if (!ft_strcmp(*str, "h"))
+		{
+			ft_strdel(str);
+			*str = ft_strdup("l");
+		}
+		else
+			*str = ft_strcln1join(*str, "l");
+	}
 	return (*str);
 }
 
@@ -96,17 +104,11 @@ char	*ft_unsigned_size(t_format *lst, int base, va_list ap)
 
 char	*ft_float_size(t_format *lst, va_list ap)
 {
-	if (ft_strcmp(lst->lenght, "L") == 0)
-		return (ft_itoa_long(va_arg(ap, long double), lst->precision));
-	else	
 		return (ft_itoa_double(va_arg(ap, double), lst->precision));
 }
 
 char	*ft_scien_size(t_format *lst, va_list ap)
 {
-	if (ft_strcmp(lst->lenght, "L") == 0)
-		return (ft_itoa_scien_long(va_arg(ap, long double), lst->precision, lst->type));
-	else	
 		return (ft_itoa_scien(va_arg(ap, double), lst->precision, lst->type));
 
 }
@@ -129,7 +131,7 @@ char	*ft_precision(char *str, int prec)
 	int	t;
 
 	t = (int)ft_strlen(str);
-	if (prec <= t)
+	if ((prec <= t && str[0] != '-') || prec < t)
 	{
 		if ((ft_strcmp(str, "0") == 0 || ft_strcmp(str, "-0") == 0) && prec == 0)
 			str[0] = '\0';
@@ -480,14 +482,12 @@ int		ft_algo(t_format *list, char *format, va_list ap)
 	{
 		if (*format != '%')
 		{
-			ft_putchar(*format);
-			format++;
+			ft_putchar(*(format++));
 			size++;
 		}
 		else if (format[1] == '%')
 		{
-			ft_putchar(format[1]);
-			format += 2;
+			ft_putchar((format += 2)[1]);
 			size++;
 		}
 		else

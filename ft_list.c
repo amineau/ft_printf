@@ -6,13 +6,13 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:15 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/08 18:59:05 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/16 16:13:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_lstdel_format(t_format *lst)
+void		ft_lstdel_format(t_format *lst)
 {
 	if (lst->lenght)
 		ft_strdel(&lst->lenght);
@@ -21,7 +21,7 @@ void	ft_lstdel_format(t_format *lst)
 
 int			size_format(char *str)
 {
-	int 	i;
+	int		i;
 	int		j;
 	char	*type;
 
@@ -50,22 +50,23 @@ t_format	*ft_listnew_format(char *pourc)
 	pourc = stock_width(&list->width, &list->wild_width, pourc);
 	pourc = stock_precision(&list->precision, pourc, list->width);
 	pourc = stock_lenght(&list->lenght, pourc);
-		list->type = *pourc;
-		list->size = 1;
+	list->type = *pourc;
+	list->size = 1;
 	while (ft_strcmp(pourc, tmp++))
 		list->size++;
-	if (pourc[0])	
-	list->size++;
-	if (list->precision == -2 && ft_strchr("eEfFgG",list->type))
+	if (pourc[0])
+		list->size++;
+	if (list->precision == -2 && ft_strchr("eEfFgG", list->type))
 		list->precision = 6;
-	else if (list->precision == -2 && ft_strchr("dDioOuUxXbB",list->type))
+	else if (list->precision == -2 && ft_strchr("dDioOuUxXbB", list->type))
 		list->precision = 1;
-	else if (ft_strchr("dDioOuUxXbB", list->type) && list->precision < list->width && list->just == '0' && list->precision >= 0)
+	else if (ft_strchr("dDioOuUxXbB", list->type) && list->precision <
+			list->width && list->just == '0' && list->precision >= 0)
 		list->just = ' ';
 	return (list);
 }
 
-int		ft_listadd_format(t_format *list, t_format **begin)
+int			ft_listadd_format(t_format *list, t_format **begin)
 {
 	t_format	*tmp;
 
