@@ -6,25 +6,52 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:28:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 11:23:26 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/17 17:57:58 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_nan_or_inf(double nb)
+char	*ft_charupper(char *str, char c)
 {
-	if ((*(uintmax_t*)&nb >> 52) % 800 == 0x7FF)
+	int i;
+
+	str = ft_strdup(str);
+	if (ft_isupper(c))
 	{
-		if (*(uintmax_t*)&nb % 8000000000000 == 0)
+		i = 0;
+		while (str[i])
+		{
+			str[i] = ft_toupper(str[i]);
+			i++;
+		}
+	}
+	return (str);
+}
+
+char	*ft_nan_or_inf(double nb, char c)
+{
+	double			tmp;
+	unsigned int	bit;
+
+	if ((*(uintmax_t*)&nb >> 52) % 0x800 == 0x7FF)
+	{
+		tmp = nb;
+		bit = 0;
+		while ((*(uintmax_t*)&tmp & 1) == 0)
+		{
+			*(uintmax_t*)&tmp = *(uintmax_t*)&tmp >> 1;
+			bit++;
+		}
+		if (bit == 52)
 		{
 			if (*(uintmax_t*)&nb >> 63 == 1)
-				return (ft_strdup("-inf"));
+				return (ft_charupper("-inf", c));
 			else
-				return (ft_strdup("inf"));
+				return (ft_charupper("inf", c));
 		}
 		else
-			return (ft_strdup("NaN"));
+			return (ft_charupper("nan", c));
 	}
 	return (NULL);
 }
@@ -32,20 +59,22 @@ char	*ft_nan_or_inf(double nb)
 double	ft_recup(double dif, double nb, int i)
 {
 	int	j;
+
 	j = 0;
 	while (j++ < i)
 		dif *= 10;
 	return (ABS(nb - dif));
 }
-char	*ft_itoa_double(double nb, int prec)
+
+char	*ft_itoa_double(double nb, int prec, char c)
 {
 	char	*str;
 	double	tmp;
 	double	tmp2;
 	int		nbrdig;
 	int		i;
-		
-	if ((str = ft_nan_or_inf(nb)))
+
+	if ((str = ft_nan_or_inf(nb, c)))
 		return (str);
 	nbrdig = 1;
 	tmp = (*(uintmax_t*)&nb >> 63 == 1) ? -nb : nb;

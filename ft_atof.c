@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 10:26:26 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 10:33:41 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:59:09 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ long double	ft_atof(char *str)
 	i = (str[0] == '-') ? 1 : 0;
 	nb = 0;
 	while (i < size)
-		nb = nb * 10 + str[i++] - 48;	
+		nb = nb * 10 + str[i++] - 48;
 	nb = (str[0] == '-') ? -nb : nb;
 	return (nb);
 }

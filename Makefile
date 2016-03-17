@@ -6,7 +6,7 @@
 #    By: amineau <amineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/25 13:15:17 by amineau           #+#    #+#              #
-#    Updated: 2016/03/17 11:25:09 by amineau          ###   ########.fr        #
+#    Updated: 2016/03/17 19:30:05 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,13 @@ SRC=ft_printf.c \
 	ft_cntwint.c \
 	ft_libft_wchar.c \
 	ft_atof.c \
+	ft_wildcard.c \
+	ft_recup_arg.c \
+	ft_justif.c \
+	ft_zero_justif.c \
+	ft_integer.c \
+	ft_floater.c \
+	ft_wchar.c \
 
 OBJ= $(SRC:.c=.o)
 

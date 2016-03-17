@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:50:53 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 17:04:58 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:05:08 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	nbrdigit(uintmax_t nbr, int base)
 
 static char	*asneg(intmax_t nb, int *i, int base)
 {
-	int 		neg;
+	int			neg;
 	char		*str;
 	uintmax_t	tmp;
 
@@ -55,10 +55,10 @@ char		*ft_itoa_base(intmax_t value, int base, char c)
 	{
 		digit = tmp / ft_power(pow, base);
 		tmp %= ft_power(pow, base);
-	if (digit < 10)
-		str[i++] = digit + 48;
-	else
-		str[i++] = digit + c - 33;
+		if (digit < 10)
+			str[i++] = digit + 48;
+		else
+			str[i++] = digit + c - 33;
 	}
 	str[i] = '\0';
 	return (str);

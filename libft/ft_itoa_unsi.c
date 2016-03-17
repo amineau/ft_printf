@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 06:08:17 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/27 21:40:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:07:08 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static int	nbrdigit(uintmax_t nbr)
 	}
 	return (pow + 1);
 }
-char		*ft_itoa_unsi(uintmax_t value)
+
+char		*ft_utoa(uintmax_t value)
 {
 	char	*str;
 	int		pow;
@@ -40,6 +41,6 @@ char		*ft_itoa_unsi(uintmax_t value)
 		value %= ft_power(pow, 10);
 		str[i++] = digit + 48;
 	}
-		str[i] = '\0';
+	str[i] = '\0';
 	return (str);
 }

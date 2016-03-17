@@ -6,20 +6,17 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:21:26 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/03 17:00:09 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:04:30 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define BUFF_SIZE 10
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
-/***********config linux**********/
-#include <stdint.h>
-/*********************************/
-# define BUFF_SIZE 10
 
 typedef struct	s_list
 {
@@ -77,9 +74,9 @@ int				ft_atoi(const char *str);
 void			ft_strclr(char *s);
 char			*ft_strnew(size_t size);
 char			*ft_itoa(intmax_t n);
-char			*ft_itoa_unsi(uintmax_t n);
+char			*ft_utoa(uintmax_t n);
 char			*ft_itoa_base(intmax_t n, int base, char c);
-char			*ft_itoa_unsi_base(uintmax_t n, int base, char c);
+char			*ft_utoa_base(uintmax_t n, int base, char c);
 void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);
 void			ft_strdel(char **as);

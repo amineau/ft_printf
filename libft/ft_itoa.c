@@ -6,7 +6,7 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 13:37:06 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/02 12:58:05 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/17 18:05:24 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	nbrdigit(intmax_t nbr)
 
 static int	bo(int digit, uintmax_t tmp, int i, char *str)
 {
-		str[i] = digit + 48;
+	str[i] = digit + 48;
 	return (tmp);
 }
 
@@ -48,7 +48,7 @@ char		*ft_itoa(intmax_t value)
 		str[i++] = '-';
 	while (--pow >= 0)
 		tmp = bo(tmp / ft_power(pow, 10),
-		tmp % ft_power(pow, 10), i++, str);
+				tmp % ft_power(pow, 10), i++, str);
 	str[i] = '\0';
 	return (str);
 }
