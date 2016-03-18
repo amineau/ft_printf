@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 17:38:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 19:31:09 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/18 18:39:53 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int		ft_scienti(t_format *lst, va_list ap)
 	if (lst->precision == 0 && lst->conv != '#')
 		lst->precision = -1;
 	str = ft_itoa_scien(va_arg(ap, double), lst->precision, lst->type);
-	str = ft_sign(str, lst->sign);
+	if (ft_isalpha(str[0]) && lst->just == '0')
+		lst->just = ' ';
+	if (ft_strcmp(str, "nan") && ft_strcmp(str, "NAN"))
+		str = ft_sign(str, lst->sign);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
 	size = ft_strlen(str);
