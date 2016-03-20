@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 17:38:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/18 18:39:53 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 11:38:21 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		ft_hexa(t_format *lst, va_list ap)
 
 	dest = NULL;
 	str = ft_precision(ft_unsigned_size(lst, 16, ap), lst->precision);
-	if (lst->conv == '#' && ft_atoi(str) != 0)
+	if (lst->conv == '#' && ft_atoi_base(str, 16) != 0)
 	{
 		dest = ft_strnew(2);
 		dest[0] = '0';

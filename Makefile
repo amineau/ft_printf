@@ -6,7 +6,7 @@
 #    By: amineau <amineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/25 13:15:17 by amineau           #+#    #+#              #
-#    Updated: 2016/03/17 19:30:05 by amineau          ###   ########.fr        #
+#    Updated: 2016/03/20 12:06:27 by amineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ EXE = ft_printf
 CC= gcc
 LFTPATCH= ./libft/
 LIBS= -L$(LFTPATCH) -lft 
-FLAGS= #-Wall -Wextra -Werror
+FLAGS= -Wall -Wextra -Werror
 SRC=ft_printf.c \
 	ft_stock.c \
 	ft_list.c \
@@ -46,15 +46,11 @@ OBJ= $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	make -C $(LFTPATCH) re
+	make -C $(LFTPATCH)
 	$(CC) $(FLAGS) -c $(SRC)
 	cp libft/libft.a $(NAME)
 	ar r $(NAME) $(OBJ)
 	ranlib $(NAME)
-ss:
-	make -C $(LFTPATCH)
-	$(CC) $(FLAGS) -c $(SRC) main.c
-	$(CC) $(OBJ) main.o $(LIBS) -o $(EXE)
 
 clean:
 	rm -f $(OBJ)

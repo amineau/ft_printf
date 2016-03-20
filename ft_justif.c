@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 17:06:32 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 18:02:21 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 11:52:40 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char	*ft_sign(char *str, char s)
 
 char	*ft_precision(char *str, int prec)
 {
-	int	t;
+	int		t;
+	char	*dest;
 
 	t = (int)ft_strlen(str);
 	if ((prec <= t && str[0] != '-') || prec < t)
@@ -51,8 +52,11 @@ char	*ft_precision(char *str, int prec)
 		return (str);
 	}
 	if (str[0] == '-')
-		return (ft_strcln2join("-",
-					ft_strcln1join(ft_wh('0', prec - t + 1), &str[1])));
+	{
+		dest = ft_strcln1join(ft_wh('0', prec - t + 1), &str[1]);
+		ft_strdel(&str);
+		return (ft_strcln2join("-", dest));
+	}
 	return (ft_strclnjoin(ft_wh('0', prec - t), str));
 }
 

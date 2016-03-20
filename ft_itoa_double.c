@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:28:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/18 18:16:00 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 12:08:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,36 @@ double	ft_recup(double dif, double nb, int i)
 	return (ABS(nb - dif));
 }
 
+int		ft_nbrint(double *nb)
+{
+	int	nbrdig;
+
+	nbrdig = 1;
+	while (*nb > 10)
+	{
+		*nb /= 10;
+		nbrdig++;
+	}
+	return (nbrdig);
+}
+
 char	*ft_itoa_double(double nb, int prec, char c)
 {
 	char	*str;
 	double	tmp;
 	double	tmp2;
-	int		nbrdig;
 	int		i;
 
 	if ((str = ft_nan_or_inf(nb, c)))
 		return (str);
-	nbrdig = 1;
 	tmp = (*(uintmax_t*)&nb >> 63 == 1) ? -nb : nb;
 	tmp2 = tmp;
 	str = (*(uintmax_t*)&nb >> 63 == 1) ? ft_strdup("-") : ft_strdup("");
-	while (tmp > 10)
-	{
-		tmp /= 10;
-		nbrdig++;
-	}
-	i = nbrdig;
+	i = ft_nbrint(&tmp);
 	while (i > 8)
 	{
 		i -= 8;
 		str = ft_strclnjoin(str, ft_integer(tmp, str, 8, 1));
-		tmp = tmp2;
 		tmp = ft_recup(ft_atof(str), nb, i);
 		tmp2 = tmp;
 		while (tmp > 10)

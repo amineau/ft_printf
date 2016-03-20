@@ -6,7 +6,7 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:21:26 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 18:04:30 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 11:00:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int				ft_isprint(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 int				ft_atoi(const char *str);
+int				ft_atoi_base(const char *str, int base);
 void			ft_strclr(char *s);
 char			*ft_strnew(size_t size);
 char			*ft_itoa(intmax_t n);
