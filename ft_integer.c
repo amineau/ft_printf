@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 17:34:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/20 14:25:12 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 17:02:48 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_string(t_format *lst, va_list ap)
 	int		size;
 
 	if (!ap || !(str = va_arg(ap, char*)))
-		str = ft_strdup("(null)");
+		str = "(null)";
 	size = (lst->precision >= 0) ? lst->precision : (int)ft_strlen(str);
 	str = ft_justif_string(ft_strndup(str, size), lst->width, lst->just);
 	ft_putstr(str);

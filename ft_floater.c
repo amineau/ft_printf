@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 17:38:37 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/20 11:38:21 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 17:03:01 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		ft_float(t_format *lst, va_list ap)
 	if (lst->precision == 0 && lst->conv != '#')
 		lst->precision = -1;
 	str = ft_itoa_double(va_arg(ap, double), lst->precision, lst->type);
-	str = ft_sign(str, lst->sign);
+	if (ft_strcmp(str, "nan") && ft_strcmp(str, "NAN"))
+		str = ft_sign(str, lst->sign);
 	str = ft_justif(str, lst->width, lst->just);
 	ft_putstr(str);
 	size = ft_strlen(str);
