@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 11:28:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/20 12:08:31 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 14:28:28 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*ft_itoa_double(double nb, int prec, char c)
 	}
 	tmp = (prec < 1) ? ft_arrondi_double(tmp, i - 1) : tmp;
 	str = ft_strclnjoin(str, ft_integer(tmp, str, i, prec));
-	str = ft_strcln1join(str, ft_decimal(ABS(nb - ft_atof(str)), prec));
+	str = ft_strclnjoin(str, ft_decimal(ABS(nb - ft_atof(str)), prec));
 	ft_refresh(&str);
 	return (str);
 }

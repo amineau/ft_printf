@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 13:15:08 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/20 12:07:19 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 13:55:53 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void			ft_refresh(char **str);
 void			ft_putwint(unsigned int w, int oc);
 void			ft_refresh(char **str);
 void			ft_lstdel_format(t_format *lst);
+void			ft_close_lst(t_format **lst, va_list ap);
 void			ft_wildcard(t_format *lst, va_list ap);
 t_format		*ft_listnew_format(char *pourc);
 

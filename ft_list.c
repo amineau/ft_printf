@@ -6,11 +6,17 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 16:33:15 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/16 16:13:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 14:10:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void		ft_close_lst(t_format **lst, va_list ap)
+{
+	free(lst);
+	va_end(ap);
+}
 
 void		ft_lstdel_format(t_format *lst)
 {

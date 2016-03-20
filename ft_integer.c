@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 17:34:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/03/17 17:37:55 by amineau          ###   ########.fr       */
+/*   Updated: 2016/03/20 14:25:12 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		ft_char(t_format *lst, va_list ap)
 		ft_putchar(c);
 	}
 	size = ft_strlen(str) + 1;
+	ft_strdel(&str);
 	return (size);
 }
 
